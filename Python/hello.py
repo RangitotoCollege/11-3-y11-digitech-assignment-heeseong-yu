@@ -1,2 +1,2 @@
+"""Python game assessment!"""
 print("Heeseong Yu!")
-print("H")
