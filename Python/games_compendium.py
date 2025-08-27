@@ -3,9 +3,9 @@ Each game has a leaderboard system that can be seen."""
 import time
 import random
 action = 0   #Placeholder variables and word lists that are used later in the code
-fastest_time_record = 999999
-highest_wordle_streak = 0
-highest_paper_scissors_rock_streak = 0
+fastest_time_record = (999999, "No one")
+highest_wordle_streak = (0, "No one")
+highest_paper_scissors_rock_streak = (0, "No one")
 typing_words_list = [
     'a', 'about', 'all', 'also', 'and', 'as', 'at', 'be', 'because', 'but',
     'by', 'can', 'come', 'could', 'day', 'do', 'even', 'find', 'first', 'for',
@@ -255,22 +255,27 @@ wordle_words_list = [
 def speed_typing():
     playing = 1 
     global fastest_time_record
+    print("Welcome to speed typing! \n Just type 10 words which were randomly chosen correctly without capitalisation as fast as you can. \n Fastest time goes to the leaderboard! Starts in 3 seconds. Good luck!")
+    time.sleep(5)  #Allows the user to read the instruction by waiting 5 seconds
     while playing:  #Until the user says they want to exit, it keeps looping the game
         sentence = ""
         for i in range(10):
-            sentence +=  typing_words_list[random.randint(0,999)] + " "  #Creates a sentence by getting a random word from 1000 words list and adding it 10 times to a blank string
+            sentence +=  typing_words_list[random.randint(0,len(typing_words_list))-1] + " "  #Creates a sentence by getting a random word from 1000 words list and adding it 10 times to a blank string
+        for i in range(3,0,-1): #Waits 3 seconds before starting
+            print(i)
+            time.sleep(1)    
         print(f"Type: {sentence}")
         start_time = time.time()
         user_sentence = input("Type: ")
-        if user_sentence == sentence.strip():
+        if user_sentence.strip() == sentence.strip():
             end_time = time.time()
             time_record = round(end_time - start_time,2)  #How fast they typed is calculated by the time the user finished minus time the user started
-            print(time_record)
-            if time_record < fastest_time_record:  #If the user did faster than the fastest record, it becomes the new fastest record.
-                fastest_time_record = time_record
-                print(f"New high record! {name} : {time_record}")
+            print(time_record, "seconds")
+            if time_record < fastest_time_record[0]:  #If the user did faster than the fastest record, it becomes the new fastest record.
+                fastest_time_record = (time_record,name)
+                print(f"New high record! {name} : {time_record} seconds")
         else:
-            print("Incorrect")
+            print("Incorrect sentence.")
         playing = None
         while playing != 0 and playing != 1:  #Until the user inputs to play again or exit, it keeps asking if they want to play again
             try:
