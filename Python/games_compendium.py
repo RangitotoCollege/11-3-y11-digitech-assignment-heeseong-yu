@@ -215,7 +215,7 @@ wordle_words_list = [
     'women', 'world', 'worry', 'worse', 'worst', 'worth', 'would', 'wound', 'woven', 'wrist',
     'write', 'wrong', 'wrote', 'yield', 'young', 'youth', 'aback', 'abase', 'abate', 'abbey',
     'abbot', 'abhor', 'abide', 'abled', 'abode', 'abort', 'ached', 'acorn', 'poler', 'mover',
-    'adapt', 'added', 'adept', 'adieu', 'adorn', 'afoot', 'afore', 'crane',
+    'adapt', 'added', 'adept', 'adieu', 'adorn', 'afoot', 'afore', 'crane', 'maple',
     'afoul', 'after', 'agape', 'agile', 'aging', 'aglow', 'agony', 'agora', 'agree',
     'ahead', 'aider', 'aisle', 'alarm', 'album', 'alder', 'alert', 'algae', 'alias', 'alibi',
     'alien', 'align', 'alike', 'alive', 'allay', 'alley', 'allot', 'allow', 'alloy', 'aloft',
@@ -283,6 +283,51 @@ def speed_typing():
             except ValueError:
                 print("Please try again.")
     return
+def wordle():
+    playing = 1 
+    global highest_wordle_streak
+    streak = 0
+    print("Welcome to Wordle! \n Guess a random 5 letter english word in 6 tries. \n If your try contains the correct letter at correct place it will be print GREEN \n Correct letter but at the wrong place YELLOW \n and incorrect letter RED \n You can keep playing to increase your win streak and highest streak goes in the leaderboard. \n Good luck!")  
+    while playing:
+        tries = 6 
+        word = wordle_words_list[random.randint(0,len(wordle_words_list)-1)]
+        while tries != 0:
+           guess_hint = {}
+           guess = input("\n Guess : ")
+           if guess.lower() in wordle_words_list:
+               tries -= 1
+               for i in range(5):
+                   if guess.lower()[i] == word[i]:
+                       guess_hint[i] = "GREEN"
+                   elif guess.lower()[i] in word:
+                       guess_hint[i] = "YELLOW"
+                   else:
+                       guess_hint[i] = "RED"
+           else:
+               print("Invalid word.")
+           if guess_hint:
+                for i in range(5):
+                    print(guess_hint[i],end = " ")
+                print(f"\n {tries} tries left.")
+           if guess == word:
+               print("Correct!")
+               streak += 1
+               if streak > highest_wordle_streak[0]: 
+                highest_wordle_streak = (streak,name)
+                print(f"New high record! {name} : {streak} correct answers in a row!")
+               break
+        if tries <= 0:
+            print(f"Unfortunate, the answer was: {word}.")
+            streak = 0
+        playing = None
+        while playing != 0 and playing != 1:  #Until the user inputs to play again or exit, it keeps asking if they want to play again
+            try:
+                playing = int(input("Do you want to play again? \n 0 : No \n 1 : Yes \n"))
+                if playing != 0 and playing != 1:
+                    raise ValueError
+            except ValueError:
+                print("Please try again.")
+    return
 name = input("What is your name? ")
 print(f"Welcome to Games Conpendium, {name}!")
 while action != "exit": #Keep taking inputs and allows the user to take the following action. The user can keep playing as much as they want.
@@ -293,7 +338,7 @@ while action != "exit": #Keep taking inputs and allows the user to take the foll
             speed_typing()
             continue
         elif action == 2:
-            print("play wordle")
+            wordle()
             continue
         elif action == 3:
             print("play paper scissors rock")
