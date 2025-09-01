@@ -253,7 +253,7 @@ wordle_words_list = [
 def speed_typing():
     playing = 1 
     global fastest_time_record
-    print("Welcome to speed typing! \n Just type 10 words which were randomly chosen correctly without capitalisation as fast as you can. \n Fastest time goes to the leaderboard! Starts in 3 seconds. Good luck!")
+    print(f"Welcome to speed typing {name}! \n Just type 10 words which were randomly chosen correctly without capitalisation as fast as you can. \n Fastest time goes to the leaderboard! Starts in 3 seconds. Good luck!")
     time.sleep(5)  #Allows the user to read the instruction by waiting 5 seconds
     while playing:  #Until the user says they want to exit, it keeps looping the game
         sentence = ""
@@ -288,15 +288,14 @@ def wordle():
     global highest_wordle_streak
     streak = 0
     #Similar overall structure as speed_typing
-    print(" Welcome to Wordle! \n Guess a random 5 letter english word in 6 tries. \n If your try contains the correct letter at correct place it will be print GREEN \n Correct letter but at the wrong place YELLOW \n and incorrect letter RED \n You can keep playing to increase your win streak and highest streak goes in the leaderboard. \n Good luck!")  
+    print(f" Welcome to Wordle {name}! \n Guess a random 5 letter english word in 6 tries. Unfortunately, not all words are included. \n If your try contains the correct letter at correct place it will be print GREEN \n Correct letter but at the wrong place YELLOW \n Incorrect letter RED. \n You can keep playing to increase your win streak and highest streak goes in the leaderboard. \n Good luck!")  
     while playing: 
         tries = 6  #The user has 6 guesses of words.
         word = wordle_words_list[random.randint(0,len(wordle_words_list)-1)]  #Gets a random word from the 5 letter word list
-        print(word)  #For convenience of testing, the word is printed out, DELETE AFTER TESTING
         while tries != 0:  #Until the user uses all guesses, it repeats the user to input guess.
             guess_hint = []  
             guess = input("\n Guess : ")
-            if guess.lower() in wordle_words_list:  #If the guess is in the possible solutions, it allows the guess.
+            if guess.lower().strip() in wordle_words_list:  #If the guess is in the possible solutions, it allows the guess.
                 tries -= 1
                 for i in range(5):  #Goes over the word to check if it is in the right place, in the wrong place, or not at all and appends the according colour in order.
                    if guess.lower()[i] == word[i]:
@@ -310,7 +309,7 @@ def wordle():
                 continue
             for colours in guess_hint:  #Prints out to the user if what letter is in which state and how many tries they have left.
                 print(colours,end = " ")
-            print(f"\n {tries} tries left.")
+            print(f"\n{tries} tries left.")
             if guess == word:  #If the user correctly guesses the word, it increases their streak and ends the game.
                 print("Correct!")
                 streak += 1
