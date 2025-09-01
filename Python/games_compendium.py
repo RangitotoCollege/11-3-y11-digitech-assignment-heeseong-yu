@@ -287,42 +287,45 @@ def wordle():
     playing = 1 
     global highest_wordle_streak
     streak = 0
-    print("Welcome to Wordle! \n Guess a random 5 letter english word in 6 tries. \n If your try contains the correct letter at correct place it will be print GREEN \n Correct letter but at the wrong place YELLOW \n and incorrect letter RED \n You can keep playing to increase your win streak and highest streak goes in the leaderboard. \n Good luck!")  
-    while playing:
-        tries = 6 
-        word = wordle_words_list[random.randint(0,len(wordle_words_list)-1)]
-        while tries != 0:
-           guess_hint = {}
-           guess = input("\n Guess : ")
-           if guess.lower() in wordle_words_list:
-               tries -= 1
-               for i in range(5):
+    #Similar overall structure as speed_typing
+    print(" Welcome to Wordle! \n Guess a random 5 letter english word in 6 tries. \n If your try contains the correct letter at correct place it will be print GREEN \n Correct letter but at the wrong place YELLOW \n and incorrect letter RED \n You can keep playing to increase your win streak and highest streak goes in the leaderboard. \n Good luck!")  
+    while playing: 
+        tries = 6  #The user has 6 guesses of words.
+        word = wordle_words_list[random.randint(0,len(wordle_words_list)-1)]  #Gets a random word from the 5 letter word list
+        print(word)  #For convenience of testing, the word is printed out, DELETE AFTER TESTING
+        while tries != 0:  #Until the user uses all guesses, it repeats the user to input guess.
+            guess_hint = []  
+            guess = input("\n Guess : ")
+            if guess.lower() in wordle_words_list:  #If the guess is in the possible solutions, it allows the guess.
+                tries -= 1
+                for i in range(5):  #Goes over the word to check if it is in the right place, in the wrong place, or not at all and appends the according colour in order.
                    if guess.lower()[i] == word[i]:
-                       guess_hint[i] = "GREEN"
+                       guess_hint.append("GREEN")
                    elif guess.lower()[i] in word:
-                       guess_hint[i] = "YELLOW"
+                       guess_hint.append("YELLOW")
                    else:
-                       guess_hint[i] = "RED"
-           else:
-               print("Invalid word.")
-           if guess_hint:
-                for i in range(5):
-                    print(guess_hint[i],end = " ")
-                print(f"\n {tries} tries left.")
-           if guess == word:
-               print("Correct!")
-               streak += 1
-               if streak > highest_wordle_streak[0]: 
-                highest_wordle_streak = (streak,name)
-                print(f"New high record! {name} : {streak} correct answers in a row!")
-               break
-        if tries <= 0:
+                       guess_hint.append("RED")
+            else: #If the guess is invalid, it goes back to asking the guess.
+                print("Invalid word.")
+                continue
+            for colours in guess_hint:  #Prints out to the user if what letter is in which state and how many tries they have left.
+                print(colours,end = " ")
+            print(f"\n {tries} tries left.")
+            if guess == word:  #If the user correctly guesses the word, it increases their streak and ends the game.
+                print("Correct!")
+                streak += 1
+                if streak > highest_wordle_streak[0]: 
+                    highest_wordle_streak = (streak,name)
+                    print(f"New high record! {name} : {streak} correct answers in a row!")
+                    tries = 6  #To prevent guessing correctly on the last try printing that you didn't get it, try is reseted to 6.
+                    break
+        if tries <= 0: #If the game ends without the user guessing it correctly, streak resets and the word is revealed.
             print(f"Unfortunate, the answer was: {word}.")
             streak = 0
         playing = None
-        while playing != 0 and playing != 1:  #Until the user inputs to play again or exit, it keeps asking if they want to play again
+        while playing != 0 and playing != 1:
             try:
-                playing = int(input("Do you want to play again? \n 0 : No \n 1 : Yes \n"))
+                playing = int(input("Do you want to play again? (STREAK ENDS IF YOU EXIT) \n 0 : No \n 1 : Yes \n"))
                 if playing != 0 and playing != 1:
                     raise ValueError
             except ValueError:
