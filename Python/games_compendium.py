@@ -313,6 +313,7 @@ def wordle():
             if guess == word:  #If the user correctly guesses the word, it increases their streak and ends the game.
                 print("Correct!")
                 streak += 1
+                print(f"You have got {streak} correct answers in a row!")
                 if streak > highest_wordle_streak[0]: 
                     highest_wordle_streak = (streak,name)
                     print(f"New high record! {name} : {streak} correct answers in a row!")
@@ -330,6 +331,52 @@ def wordle():
             except ValueError:
                 print("Please try again.")
     return
+def paper_scissors_rock():
+    playing = 1 
+    global highest_paper_scissors_rock_streak
+    streak = 0
+    rules = {
+  ('scissors', 'paper'): 'scissors',
+  ('paper', 'rock'): 'paper',
+  ('rock', 'scissors'): 'rock',
+}
+    hands = ["paper", "scissors", "rock"]
+    print(f"Welcome to paper scissors rock {name}! \n Simple game where scissors win paper, paper wins rock and rock wins scissors.\n Same hand is a tie. \n You can keep winning against a computer to increase your win streak and highest streak goes in the leaderboard. \n Good luck!")
+    while playing: 
+        computer_hand = hands[random.randint(0,2)]
+        user_hand = None
+        while user_hand not in hands: 
+            try:
+                user_hand = input("What hand? \n 0 : Paper \n 1 : Scissors \n 2 : Rock \n")
+                user_hand = hands[int(user_hand)]
+            except ValueError:
+                user_hand = user_hand.lower().strip()
+                if user_hand == hands[0] or user_hand == hands[1] or user_hand == hands[2]:
+                    break
+                print("Invalid input.")
+        winner = rules.get((computer_hand, user_hand), rules.get((user_hand, computer_hand), 'tie'))
+        print(f"Computer: {computer_hand}  You: {user_hand}")
+        if winner == user_hand:
+            print(f"{name} won!")
+            streak += 1
+            print(f"You have won {streak} games in a row!")
+            if streak > highest_paper_scissors_rock_streak[0]: 
+                        highest_paper_scissors_rock_streak = (streak,name)
+                        print(f"New high record! {name} : {streak} games won in a row!")
+        elif winner == computer_hand:
+            print(f"Computer won...")
+            streak = 0
+        else:
+            print("It's a tie. You still have your winning streak.")
+        playing = None
+        while playing != 0 and playing != 1:
+            try:
+                playing = int(input("Do you want to play again? (STREAK ENDS IF YOU EXIT) \n 0 : No \n 1 : Yes \n"))
+                if playing != 0 and playing != 1:
+                    raise ValueError
+            except ValueError:
+                    print("Please try again.")
+    return
 name = input("What is your name? ")
 print(f"Welcome to Games Conpendium, {name}!")
 while action != "exit": #Keep taking inputs and allows the user to take the following action. The user can keep playing as much as they want.
@@ -343,7 +390,7 @@ while action != "exit": #Keep taking inputs and allows the user to take the foll
             wordle()
             continue
         elif action == 3:
-            print("play paper scissors rock")
+            paper_scissors_rock()
             continue
         elif action == 4:
             print("show leaderboard")
