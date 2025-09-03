@@ -251,8 +251,8 @@ wordle_words_list = [
 ]
 #Different functions for different games
 def speed_typing():
-    playing = 1 
-    global fastest_time_record
+    playing = 1     #Currently the user is playing the game
+    global fastest_time_record  #Uses global to allow it to change a value that is outside the function so that it can be used in leaderboard.
     print(f"Welcome to speed typing {name}! \n Just type 10 words which were randomly chosen correctly without capitalisation as fast as you can. \n Fastest time goes to the leaderboard! Starts in 3 seconds. Good luck!")
     time.sleep(5)  #Allows the user to read the instruction by waiting 5 seconds
     while playing:  #Until the user says they want to exit, it keeps looping the game
@@ -332,31 +332,48 @@ def wordle():
                 print("Please try again.")
     return
 def paper_scissors_rock():
+    #Similar overall structure as other games.
     playing = 1 
     global highest_paper_scissors_rock_streak
     streak = 0
+    #A set of rules is created to determine who wins.
     rules = {
   ('scissors', 'paper'): 'scissors',
   ('paper', 'rock'): 'paper',
   ('rock', 'scissors'): 'rock',
 }
-    hands = ["paper", "scissors", "rock"]
+    #The list keeps track of what hand the user has played until now. 
+    hands_frequency = ["paper", "scissors", "rock"]
     print(f"Welcome to paper scissors rock {name}! \n Simple game where scissors win paper, paper wins rock and rock wins scissors.\n Same hand is a tie. \n You can keep winning against a computer to increase your win streak and highest streak goes in the leaderboard. \n Good luck!")
     while playing: 
-        computer_hand = hands[random.randint(0,2)]
+        if random.randint(1,10) == 10:  #Once in a while, it randomly resets the user frequency to prevent the user from overloading with one hand and then spamming another hand.
+            hands_frequency = ["paper", "scissors", "rock"]
+        winning_hands_frequency = []  #From what user did, it creates a list for the computer to choose from by inverting the list with hands that wins it.
+        for hands in hands_frequency:
+            if hands == "paper":
+                winning_hands_frequency.append("scissors")
+            elif hands == "scissors":
+                winning_hands_frequency.append("rock")
+            elif hands == "rock":
+                winning_hands_frequency.append("paper")
+        computer_hand = winning_hands_frequency[random.randint(0,len(winning_hands_frequency)-1)]
         user_hand = None
-        while user_hand not in hands: 
+        while user_hand not in hands_frequency: #Until user gives a valid input, it repeats asking what hand do they want to play.
             try:
                 user_hand = input("What hand? \n 0 : Paper \n 1 : Scissors \n 2 : Rock \n")
-                user_hand = hands[int(user_hand)]
+                if int(user_hand) > 2:  #User hand above 2 is created by the user so avoid confusion it raises a value error.
+                    raise ValueError
+                user_hand = hands_frequency[int(user_hand)]
             except ValueError:
-                user_hand = user_hand.lower().strip()
-                if user_hand == hands[0] or user_hand == hands[1] or user_hand == hands[2]:
+                user_hand = user_hand.lower().strip() 
+                if user_hand == hands_frequency[0] or user_hand == hands_frequency[1] or user_hand == hands_frequency[2]:  #If the user wrote the hand it self, it still accpets it
                     break
                 print("Invalid input.")
-        winner = rules.get((computer_hand, user_hand), rules.get((user_hand, computer_hand), 'tie'))
+        hands_frequency.append(user_hand)  #The hand user did is appended to the list for the computer to use the winning hand more frequently as explained above.
+        winner = rules.get((computer_hand, user_hand), rules.get((user_hand, computer_hand), 'tie')) #From the rules, it determines who wins or if it's a tie.
+        time.sleep(1) #Just a delay to prvent user from spamming.
         print(f"Computer: {computer_hand}  You: {user_hand}")
-        if winner == user_hand:
+        if winner == user_hand: #Winning and losing message and streak and highest streak system.
             print(f"{name} won!")
             streak += 1
             print(f"You have won {streak} games in a row!")
@@ -369,7 +386,7 @@ def paper_scissors_rock():
         else:
             print("It's a tie. You still have your winning streak.")
         playing = None
-        while playing != 0 and playing != 1:
+        while playing != 0 and playing != 1: #Same replay system
             try:
                 playing = int(input("Do you want to play again? (STREAK ENDS IF YOU EXIT) \n 0 : No \n 1 : Yes \n"))
                 if playing != 0 and playing != 1:
