@@ -215,8 +215,8 @@ wordle_words_list = [
     'women', 'world', 'worry', 'worse', 'worst', 'worth', 'would', 'wound', 'woven', 'wrist',
     'write', 'wrong', 'wrote', 'yield', 'young', 'youth', 'aback', 'abase', 'abate', 'abbey',
     'abbot', 'abhor', 'abide', 'abled', 'abode', 'abort', 'ached', 'acorn', 'poler', 'mover',
-    'adapt', 'added', 'adept', 'adieu', 'adorn', 'afoot', 'afore', 'crane', 'maple',
-    'afoul', 'after', 'agape', 'agile', 'aging', 'aglow', 'agony', 'agora', 'agree',
+    'adapt', 'added', 'adept', 'adieu', 'adorn', 'afoot', 'afore', 'crane', 'maple', 'sworn',
+    'afoul', 'after', 'agape', 'agile', 'aging', 'aglow', 'agony', 'agora', 'agree', 'hours',
     'ahead', 'aider', 'aisle', 'alarm', 'album', 'alder', 'alert', 'algae', 'alias', 'alibi',
     'alien', 'align', 'alike', 'alive', 'allay', 'alley', 'allot', 'allow', 'alloy', 'aloft',
     'aloha', 'alone', 'along', 'aloof', 'aloud', 'alpha', 'altar', 'alter', 'amass', 'amaze',
@@ -247,7 +247,8 @@ wordle_words_list = [
     'bunch', 'bunny', 'burly', 'burnt', 'burst', 'bused', 'bushy', 'butch', 'butte', 'buxom',
     'buyer', 'bylaw', 'cabal', 'cabby', 'cabin', 'cable', 'cacao', 'cache', 'cacti', 'caddy',
     'cadet', 'cagey', 'cairn', 'camel', 'cameo', 'canal', 'candy', 'canny', 'canon', 'caper',
-    'caput', 'carat', 'cargo', 'carol', 'carry', 'carve', 'caste', 'catch', 'cater', 'catty'
+    'caput', 'carat', 'cargo', 'carol', 'carry', 'carve', 'caste', 'catch', 'cater', 'catty',
+    'souls', 'spout', 'snout', 'shunt', 'podgy',
 ]
 #Different functions for different games
 def speed_typing():
