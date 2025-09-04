@@ -16,7 +16,7 @@ def speed_typing():
         sentence = ""
         for i in range(10):
             with open("common_10000_words.txt") as typing_words_list:
-                sentence +=  typing_words_list.read([random.randint(0,len(typing_words_list))-1]) + " "  #Creates a sentence by getting a random word from 1000 words list and adding it 10 times to a blank string
+                sentence +=  typing_words_list.read([random.randint(0,9999)]) + " "  #Creates a sentence by getting a random word from 1000 words list and adding it 10 times to a blank string
         for i in range(3,0,-1): #Waits 3 seconds before starting
             print(i)
             time.sleep(1)    
