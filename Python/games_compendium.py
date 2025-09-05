@@ -11,12 +11,12 @@ def speed_typing():
     playing = 1     #Currently the user is playing the game
     global fastest_time_record  #Uses global to allow it to change a value that is outside the function so that it can be used in the leaderboard.
     print(f"Welcome to speed typing {name}! \n Just type 10 words which were randomly chosen correctly without capitalisation as fast as you can. \n Fastest time goes to the leaderboard! Starts in 3 seconds. Good luck!")
-    time.sleep(5)  #Allows the user to read the instruction by waiting 5 seconds
+    time.sleep(3)  #Allows the user to read the instruction by waiting 3 seconds
     while playing:  #Until the user says they want to exit, it keeps looping the game
+        typing_words_list = open("common_10000_words.txt")  #Opens a file of 10000 common words 
         sentence = ""
-        for i in range(10):
-            with open("common_10000_words.txt") as typing_words_list:
-                sentence +=  typing_words_list.read([random.randint(0,9999)]) + " "  #Creates a sentence by getting a random word from 1000 words list and adding it 10 times to a blank string
+        for i in range(10):      
+            sentence +=  typing_words_list.readlines()[random.randint(0,len(typing_words_list.readlines())-1)].strip() + " "  #Creates a sentence by seperating the file into a list of stripped words and then adding on to a blank string 10 times.
         for i in range(3,0,-1): #Waits 3 seconds before starting
             print(i)
             time.sleep(1)    
@@ -40,6 +40,7 @@ def speed_typing():
                     raise ValueError
             except ValueError:
                 print("Please try again.")
+    typing_words_list.close() #Closes the file to manage resources.
     return
 def wordle():
     playing = 1 
@@ -49,11 +50,13 @@ def wordle():
     print(f" Welcome to Wordle {name}! \n Guess a random 5-letter English word in 6 tries. Unfortunately, not all words are included. \n If your try contains the correct letter at the correct place, it will be printed GREEN \n Correct letter but at the wrong place YELLOW \n Incorrect letter RED. \n You can keep playing to increase your win streak, and the highest streak goes in the leaderboard. \n Good luck!")  
     while playing: 
         tries = 6  #The user has 6 guesses of words.
-        word = wordle_words_list[random.randint(0,len(wordle_words_list)-1)]  #Gets a random word from the 5-letter word list
+        wordle_words_list = open("wordle_words.txt") #Opens a file of many 5 letter words.
+        stripped_wordle_words_list = [word.strip() for word in wordle_words_list.readlines()] #Seperates them into a list and strips every element in the list to create a list with no line breaks.
+        word = stripped_wordle_words_list[random.randint(0,len(stripped_wordle_words_list)-1)]  #Gets a random word from the 5-letter word list
         while tries != 0:  #Until the user uses all guesses, it repeats asking the user to input a guess.
             guess_hint = []  
             guess = input("\n Guess : ")
-            if guess.lower().strip() in wordle_words_list:  #If the guess is in the possible solutions, it allows the guess.
+            if guess.lower().strip() in stripped_wordle_words_list:  #If the guess is in the possible solutions, it allows the guess.
                 tries -= 1
                 for i in range(5):  #Goes over the word to check if it is in the right place, in the wrong place, or not at all and appends the corresponding colour in order.
                    if guess.lower()[i] == word[i]:
@@ -88,6 +91,7 @@ def wordle():
                     raise ValueError
             except ValueError:
                 print("Please try again.")
+    wordle_words_list.close() 
     return
 def paper_scissors_rock():
     #Similar overall structure to other games.
