@@ -14,9 +14,10 @@ def speed_typing():
     time.sleep(3)  #Allows the user to read the instruction by waiting 3 seconds
     while playing:  #Until the user says they want to exit, it keeps looping the game
         typing_words_list = open("common_10000_words.txt")  #Opens a file of 10000 common words 
+        stripped_typing_words_list = [word.strip() for word in typing_words_list.readlines()] #Seperates them into a list and strips every element in the list to create a list with no line breaks.
         sentence = ""
-        for i in range(10):      
-            sentence +=  typing_words_list.readlines()[random.randint(0,len(typing_words_list.readlines())-1)].strip() + " "  #Creates a sentence by seperating the file into a list of stripped words and then adding on to a blank string 10 times.
+        for i in range(10):
+            sentence +=  stripped_typing_words_list[random.randint(0,len(stripped_typing_words_list)-1)] + " "  #Creates a sentence by seperating the file into a list of stripped words and then adding on to a blank string 10 times.
         for i in range(3,0,-1): #Waits 3 seconds before starting
             print(i)
             time.sleep(1)    
@@ -50,8 +51,8 @@ def wordle():
     print(f" Welcome to Wordle {name}! \n Guess a random 5-letter English word in 6 tries. Unfortunately, not all words are included. \n If your try contains the correct letter at the correct place, it will be printed GREEN \n Correct letter but at the wrong place YELLOW \n Incorrect letter RED. \n You can keep playing to increase your win streak, and the highest streak goes in the leaderboard. \n Good luck!")  
     while playing: 
         tries = 6  #The user has 6 guesses of words.
-        wordle_words_list = open("wordle_words.txt") #Opens a file of many 5 letter words.
-        stripped_wordle_words_list = [word.strip() for word in wordle_words_list.readlines()] #Seperates them into a list and strips every element in the list to create a list with no line breaks.
+        wordle_words_list = open("wordle_words.txt")
+        stripped_wordle_words_list = [word.strip() for word in wordle_words_list.readlines()]
         word = stripped_wordle_words_list[random.randint(0,len(stripped_wordle_words_list)-1)]  #Gets a random word from the 5-letter word list
         while tries != 0:  #Until the user uses all guesses, it repeats asking the user to input a guess.
             guess_hint = []  
