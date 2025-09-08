@@ -2,7 +2,8 @@ import random
 import time
 import utils
 def play():
-    fastest_time_record  = 0 #Uses global to allow it to change a value that is outside the function so that it can be used in the leaderboard.
+    playing = 1
+    fastest_time_record  = (999999,"No one") #Uses global to allow it to change a value that is outside the function so that it can be used in the leaderboard.
     print(f"\n === Speed Typing === \n Welcome to speed typing {utils.name}! \n Just type 10 words which were randomly chosen correctly without capitalisation as fast as you can. \n Fastest time goes to the leaderboard! Starts in 3 seconds. Good luck!")
     time.sleep(3)  #Allows the user to read the instruction by waiting 3 seconds
     while playing:  #Until the user says they want to exit, it keeps looping the game
@@ -26,6 +27,6 @@ def play():
                 print(f"New high record! {utils.name} : {time_record} seconds")
         else:
             print("Incorrect sentence.")
-        utils.replay(" ")
+        playing = utils.replay(" ")
     typing_words_list.close() #Closes the file to manage resources.
     return

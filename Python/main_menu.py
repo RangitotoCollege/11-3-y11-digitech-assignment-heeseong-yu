@@ -6,7 +6,7 @@ import paper_scissors_rock
 import utils
 def main_menu():
     action = 0  
-    util.set_name(input("What is your name? "))
+    utils.set_name(input("What is your name? "))
     print(f"Welcome to Games Conpendium, {utils.name}!")
     while action != "exit": #Keep taking inputs and allow the user to take the following action. The user can keep playing as much as they want.
         try:

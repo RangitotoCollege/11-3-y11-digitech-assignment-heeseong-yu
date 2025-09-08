@@ -3,8 +3,9 @@ import time
 import utils
 def play():
     #Similar overall structure to other games.
-    highest_paper_scissors_rock_streak = 0
+    highest_paper_scissors_rock_streak = (0,"No one")
     streak = 0
+    playing = 1
     #A set of rules is created to determine who wins.
     rules = {
   ('scissors', 'paper'): 'scissors',
@@ -54,5 +55,5 @@ def play():
             streak = 0
         else:
             print("It's a tie. You still have your winning streak.")
-        utils.replay("STREAK ENDS IF YOU LEAVE! ")
+        playing = utils.replay("STREAK ENDS IF YOU LEAVE! ")
     return
