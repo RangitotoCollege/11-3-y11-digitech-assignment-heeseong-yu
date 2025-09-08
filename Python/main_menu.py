@@ -7,13 +7,8 @@ import utils
 
 
 def main_menu():
-    action = 0   #Placeholder variables and word lists that are used later in the code
-    fastest_time_record = (999999, "No one")
-    highest_wordle_streak = (0, "No one")
-    highest_paper_scissors_rock_streak = (0, "No one")
-    #Different functions for different games
-
-    utils.name = input("What is your name? ")
+    action = 0  
+    util.set_name(input("What is your name? "))
     print(f"Welcome to Games Conpendium, {utils.name}!")
     while action != "exit": #Keep taking inputs and allow the user to take the following action. The user can keep playing as much as they want.
         try:
