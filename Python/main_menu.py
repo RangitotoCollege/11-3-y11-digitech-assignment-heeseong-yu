@@ -4,8 +4,6 @@ import speed_typing
 import wordle
 import paper_scissors_rock
 import utils
-
-
 def main_menu():
     action = 0  
     util.set_name(input("What is your name? "))
@@ -29,6 +27,5 @@ def main_menu():
                 raise ValueError
         except ValueError: #If action is not any of the options, it asks the user to try again.
             print("Please try again.")
-            continue
 if __name__ == "__main__":
     main_menu()

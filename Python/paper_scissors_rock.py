@@ -4,7 +4,7 @@ import utils
 def play():
     #Similar overall structure to other games.
     playing = 1 
-    global highest_paper_scissors_rock_streak
+    highest_paper_scissors_rock_streak
     streak = 0
     #A set of rules is created to determine who wins.
     rules = {
@@ -55,12 +55,5 @@ def play():
             streak = 0
         else:
             print("It's a tie. You still have your winning streak.")
-        playing = None
-        while playing != 0 and playing != 1: #Same replay system
-            try:
-                playing = int(input("Do you want to play again? (STREAK ENDS IF YOU EXIT) \n 0 : No \n 1 : Yes \n"))
-                if playing != 0 and playing != 1:
-                    raise ValueError
-            except ValueError:
-                    print("Please try again.")
+        utils.replay("STREAK ENDS IF YOU LEAVE! ")
     return
