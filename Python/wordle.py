@@ -1,10 +1,10 @@
 import random
 import utils
 def play():
-    highest_wordle_streak
+    highest_wordle_streak = 0
     streak = 0
     #Similar overall structure as speed_typing
-    print(f" Welcome to Wordle {utils.name}! \n Guess a random 5-letter English word in 6 tries. Unfortunately, not all words are included. \n If your try contains the correct letter at the correct place, it will be printed GREEN \n Correct letter but at the wrong place YELLOW \n Incorrect letter RED. \n You can keep playing to increase your win streak, and the highest streak goes in the leaderboard. \n Good luck!")  
+    print(f"\n === Wordle === \n Welcome to Wordle {utils.name}! \n Guess a random 5-letter English word in 6 tries. Unfortunately, not all words are included. \n If your try contains the correct letter at the correct place, it will be printed GREEN \n Correct letter but at the wrong place YELLOW \n Incorrect letter RED. \n You can keep playing to increase your win streak, and the highest streak goes in the leaderboard. \n Good luck!")  
     while playing: 
         tries = 6  #The user has 6 guesses of words.
         wordle_words_list = open("wordle_words.txt") 
@@ -37,7 +37,7 @@ def play():
                 if streak > highest_wordle_streak[0]: 
                     highest_wordle_streak = (streak,utils.name)
                     print(f"New high record! {utils.name} : {streak} correct answers in a row!")
-                    tries = 6  #To prevent guessing correctly on the last try, printing that you didn't get it, tries resets to 6.
+                    tries = 6  #To prevent guessing correctly on the last try printing that you didn't get it, tries resets to 6.
                     break
         if tries <= 0: #If the game ends without the user guessing it correctly, the streak resets and the word is revealed.
             print(f"Unfortunate, the answer was: {word}.")

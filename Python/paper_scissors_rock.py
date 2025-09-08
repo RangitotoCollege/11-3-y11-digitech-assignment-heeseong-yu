@@ -3,8 +3,7 @@ import time
 import utils
 def play():
     #Similar overall structure to other games.
-    playing = 1 
-    highest_paper_scissors_rock_streak
+    highest_paper_scissors_rock_streak = 0
     streak = 0
     #A set of rules is created to determine who wins.
     rules = {
@@ -14,7 +13,7 @@ def play():
 }
     #The list keeps track of what hand the user has played until now. 
     hands_frequency = ["paper", "scissors", "rock"]
-    print(f"Welcome to paper scissors rock {utils.name}! \n Simple game where scissors win paper, paper wins rock and rock wins scissors.\n Same hand is a tie. \n You can keep winning against a computer to increase your win streak, and the highest streak goes in the leaderboard. \n Good luck!")
+    print(f"\n === Paper Scissors Rock === \n Welcome to paper scissors rock {utils.name}! \n Simple game where scissors win paper, paper wins rock and rock wins scissors.\n Same hand is a tie. \n You can keep winning against a computer to increase your win streak, and the highest streak goes in the leaderboard. \n Good luck!")
     while playing: 
         if random.randint(1,10) == 10:  #Once in a while, it randomly resets the user frequency to prevent the user from overloading with one hand and then spamming another hand.
             hands_frequency = ["paper", "scissors", "rock"]
