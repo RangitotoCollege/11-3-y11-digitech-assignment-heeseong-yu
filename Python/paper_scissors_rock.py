@@ -14,7 +14,7 @@ def play():
 }
     #The list keeps track of what hand the user has played until now. 
     hands_frequency = ["paper", "scissors", "rock"]
-    print(f"Welcome to paper scissors rock {name}! \n Simple game where scissors win paper, paper wins rock and rock wins scissors.\n Same hand is a tie. \n You can keep winning against a computer to increase your win streak, and the highest streak goes in the leaderboard. \n Good luck!")
+    print(f"Welcome to paper scissors rock {utils.name}! \n Simple game where scissors win paper, paper wins rock and rock wins scissors.\n Same hand is a tie. \n You can keep winning against a computer to increase your win streak, and the highest streak goes in the leaderboard. \n Good luck!")
     while playing: 
         if random.randint(1,10) == 10:  #Once in a while, it randomly resets the user frequency to prevent the user from overloading with one hand and then spamming another hand.
             hands_frequency = ["paper", "scissors", "rock"]
@@ -44,12 +44,12 @@ def play():
         time.sleep(1) #Just a delay to prvent user from spamming.
         print(f"Computer: {computer_hand}  You: {user_hand}")
         if winner == user_hand: #Winning and losing message and streak, and highest streak system.
-            print(f"{name} won!")
+            print(f"{utils.name} won!")
             streak += 1
             print(f"You have won {streak} games in a row!")
             if streak > highest_paper_scissors_rock_streak[0]: 
-                        highest_paper_scissors_rock_streak = (streak,name)
-                        print(f"New high record! {name} : {streak} games won in a row!")
+                        highest_paper_scissors_rock_streak = (streak,utils.name)
+                        print(f"New high record! {utils.name} : {streak} games won in a row!")
         elif winner == computer_hand:
             print(f"Computer won...")
             streak = 0
