@@ -3,7 +3,7 @@ import time
 import utils
 def play():
     #Similar overall structure to other games.
-    highest_paper_scissors_rock_streak = (0,"No one")
+    highest_paper_scissors_rock_streak = 0
     streak = 0
     playing = 1
     #A set of rules is created to determine who wins.
@@ -16,6 +16,7 @@ def play():
     hands_frequency = ["paper", "scissors", "rock"]
     print(f"\n === Paper Scissors Rock === \n Welcome to paper scissors rock {utils.name}! \n Simple game where scissors win paper, paper wins rock and rock wins scissors.\n Same hand is a tie. \n You can keep winning against a computer to increase your win streak, and the highest streak goes in the leaderboard. \n Good luck!")
     while playing: 
+        print("\n======")
         if random.randint(1,10) == 10:  #Once in a while, it randomly resets the user frequency to prevent the user from overloading with one hand and then spamming another hand.
             hands_frequency = ["paper", "scissors", "rock"]
         winning_hands_frequency = []  #From what user did, it creates a list for the computer to choose from by inverting the list with hands that win it.
@@ -36,19 +37,20 @@ def play():
                 user_hand = hands_frequency[int(user_hand)]
             except ValueError:
                 user_hand = user_hand.lower().strip() 
-                if user_hand == hands_frequency[0] or user_hand == hands_frequency[1] or user_hand == hands_frequency[2]:  #If the user wrote the hand itself, it still accepts it
+                if user_hand == "paper" or user_hand == "scissors" or user_hand == "rock":  #If the user wrote the hand itself, it still accepts it
                     break
                 print("Invalid input.")
         hands_frequency.append(user_hand)  #The hand user did is appended to the list for the computer to use the winning hand more frequently, as explained above.
         winner = rules.get((computer_hand, user_hand), rules.get((user_hand, computer_hand), 'tie')) #From the rules, it determines who wins or if it's a tie.
-        time.sleep(1) #Just a delay to prvent user from spamming.
+        time.sleep(0.5) #Just a delay to prvent user from spamming.
         print(f"Computer: {computer_hand}  You: {user_hand}")
         if winner == user_hand: #Winning and losing message and streak, and highest streak system.
             print(f"{utils.name} won!")
             streak += 1
             print(f"You have won {streak} games in a row!")
-            if streak > highest_paper_scissors_rock_streak[0]: 
-                        highest_paper_scissors_rock_streak = (streak,utils.name)
+            if streak > highest_paper_scissors_rock_streak: 
+                        highest_paper_scissors_rock_streak = streak
+                        utils.add_leaderboard(2,str(utils.name) + " : " + str(highest_paper_scissors_rock_streak) )
                         print(f"New high record! {utils.name} : {streak} games won in a row!")
         elif winner == computer_hand:
             print(f"Computer won...")

@@ -3,10 +3,11 @@ import time
 import utils
 def play():
     playing = 1
-    fastest_time_record  = (999999,"No one") #Uses global to allow it to change a value that is outside the function so that it can be used in the leaderboard.
+    fastest_time_record  = 999999 #Uses global to allow it to change a value that is outside the function so that it can be used in the leaderboard.
     print(f"\n === Speed Typing === \n Welcome to speed typing {utils.name}! \n Just type 10 words which were randomly chosen correctly without capitalisation as fast as you can. \n Fastest time goes to the leaderboard! Starts in 3 seconds. Good luck!")
     time.sleep(3)  #Allows the user to read the instruction by waiting 3 seconds
-    while playing:  #Until the user says they want to exit, it keeps looping the game
+    while playing:  #Until the user says they want to exit, it keeps looping the 
+        print("\n======")
         typing_words_list = open("common_10000_words.txt")  #Opens a file of 10000 common words 
         stripped_typing_words_list = [word.strip() for word in typing_words_list.readlines()] #Seperates them into a list and strips every element in the list to create a list with no line breaks.
         sentence = ""
@@ -22,8 +23,9 @@ def play():
             end_time = time.time()
             time_record = round(end_time - start_time,2)  #How fast they typed is calculated by the time the user finished minus the time the user started
             print(time_record, "seconds")
-            if time_record < fastest_time_record[0]:  #If the user did faster than the fastest record, it becomes the new fastest record.
-                fastest_time_record = (time_record,utils.name)
+            if time_record < fastest_time_record:  #If the user did faster than the fastest record, it becomes the new fastest record.
+                fastest_time_record = time_record
+                utils.add_leaderboard(0,str(utils.name) + " : " + str(fastest_time_record))
                 print(f"New high record! {utils.name} : {time_record} seconds")
         else:
             print("Incorrect sentence.")

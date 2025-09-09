@@ -1,7 +1,7 @@
 import random
 import utils
 def play():
-    highest_wordle_streak = (0,"No one")
+    highest_wordle_streak = 0
     streak = 0
     playing = 1
     #Similar overall structure as speed_typing
@@ -14,6 +14,7 @@ def play():
         stripped_wordle_answers_list = [word.strip() for word in wordle_answers_list.readlines()]  #There is a seperate list for possible answers and possible guesses to make answers easy while making guesses have more freedom.
         word = stripped_wordle_answers_list[random.randint(0,len(stripped_wordle_answers_list)-1)]  #Gets a random word from the 5-letter word list
         while tries != 0:  #Until the user uses all guesses, it repeats asking the user to input a guess.
+            print("\n======")
             guess_hint = []  
             guess = input("\n Guess : ")
             if guess.lower().strip() in stripped_wordle_words_list:  #If the guess is in the possible solutions, it allows the guess.
@@ -36,7 +37,8 @@ def play():
                 streak += 1
                 print(f"You have got {streak} correct answers in a row!")
                 if streak > highest_wordle_streak[0]: 
-                    highest_wordle_streak = (streak,utils.name)
+                    highest_wordle_streak = streak
+                    utils.add_leaderboard(1, str(utils.name) + " : " + str(streak) )
                     print(f"New high record! {utils.name} : {streak} correct answers in a row!")
                     tries = 6  #To prevent guessing correctly on the last try printing that you didn't get it, tries resets to 6.
                     break

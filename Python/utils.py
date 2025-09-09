@@ -12,3 +12,10 @@ def replay(message):
         except ValueError:
             print("Please try again.")
     return (playing)
+def add_leaderboard(line,score):
+    with open('leaderboard.txt', 'r') as leaderboard:
+        modified_leaderboard = leaderboard.readlines()
+        print(modified_leaderboard)
+        modified_leaderboard[line] = score + "\n"
+    with open('leaderboard.txt', 'w') as leaderboard:
+        leaderboard.writelines(modified_leaderboard)
