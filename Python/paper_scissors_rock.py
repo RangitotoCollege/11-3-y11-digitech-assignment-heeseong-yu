@@ -3,7 +3,6 @@ import time
 import utils
 def play():
     #Similar overall structure to other games.
-    highest_paper_scissors_rock_streak = 0
     streak = 0
     playing = 1
     #A set of rules is created to determine who wins.
@@ -48,9 +47,8 @@ def play():
             print(f"{utils.name} won!")
             streak += 1
             print(f"You have won {streak} games in a row!")
-            if streak > highest_paper_scissors_rock_streak: 
-                        highest_paper_scissors_rock_streak = streak
-                        utils.add_leaderboard(2,str(utils.name) + " : " + str(highest_paper_scissors_rock_streak) )
+            if streak > int(utils.open_leaderboard(2)[1]): 
+                        utils.add_leaderboard(2,str(utils.name) + " " + str(streak))
                         print(f"New high record! {utils.name} : {streak} games won in a row!")
         elif winner == computer_hand:
             print(f"Computer won...")

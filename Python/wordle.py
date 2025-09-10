@@ -1,7 +1,6 @@
 import random
 import utils
 def play():
-    highest_wordle_streak = 0
     streak = 0
     playing = 1
     #Similar overall structure as speed_typing
@@ -36,9 +35,8 @@ def play():
                 print("Correct!")
                 streak += 1
                 print(f"You have got {streak} correct answers in a row!")
-                if streak > highest_wordle_streak[0]: 
-                    highest_wordle_streak = streak
-                    utils.add_leaderboard(1, str(utils.name) + " : " + str(streak) )
+                if streak > int(utils.open_leaderboard(1)[1]): 
+                    utils.add_leaderboard(1, str(utils.name) + " " + str(streak) )
                     print(f"New high record! {utils.name} : {streak} correct answers in a row!")
                     tries = 6  #To prevent guessing correctly on the last try printing that you didn't get it, tries resets to 6.
                     break

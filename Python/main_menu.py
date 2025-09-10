@@ -19,7 +19,7 @@ def main_menu():
             elif action == 3:
                 paper_scissors_rock.play()
             elif action == 4:
-                print("show leaderboard")
+                utils.view_leaderboard()
             elif action == 5:
                 print("Thank you for playing!")
                 break
