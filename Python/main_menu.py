@@ -5,8 +5,11 @@ import wordle
 import paper_scissors_rock
 import utils
 def main_menu():
-    action = 0  
-    utils.set_name(input("What is your name? "))
+    action = 0 
+    print("=== Name setting ===\n")
+    while len(utils.name) == 0 or len(utils.name) > 20: 
+        print("Name should be between 1 to 20 letters.")
+        utils.set_name(input("What is your name? "))
     print(f"Welcome to Games Conpendium, {utils.name}!")
     while action != "exit": #Keep taking inputs and allow the user to take the following action. The user can keep playing as much as they want.
         try:

@@ -22,11 +22,11 @@ def play():
             end_time = time.time()
             time_record = round(end_time - start_time,2)  #How fast they typed is calculated by the time the user finished minus the time the user started
             print(time_record, "seconds")
-            if time_record < int(utils.open_leaderboard(0)[1]):  #If the user did faster than the fastest record, it becomes the new fastest record.
+            if time_record < float(utils.open_leaderboard(0)[1]):  #If the user did faster than the fastest record, it becomes the new fastest record.
                 utils.add_leaderboard(0,str(utils.name) + " " + str(time_record))
                 print(f"New high record! {utils.name} : {time_record} seconds")
         else:
             print("Incorrect sentence.")
         playing = utils.replay(" ")
-    typing_words_list.close() #Closes the file to manage resources.
+        typing_words_list.close() #Closes the file to manage resources.
     return

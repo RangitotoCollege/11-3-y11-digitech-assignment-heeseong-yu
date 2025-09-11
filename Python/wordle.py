@@ -44,6 +44,6 @@ def play():
             print(f"Unfortunate, the answer was: {word}.")
             streak = 0
         playing = utils.replay("STREAK ENDS IF YOU LEAVE! ")
-    wordle_words_list.close() 
-    wordle_answers_list.close() 
+        wordle_words_list.close() 
+        wordle_answers_list.close() 
     return

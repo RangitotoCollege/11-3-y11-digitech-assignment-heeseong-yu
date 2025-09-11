@@ -1,14 +1,14 @@
-name = None
+name = ""
 games = ["Speed Typing","Wordle","Paper Scissors Rock"]
 def set_name(new_name):
     global name
-    name = new_name
+    name = new_name.strip()
 def replay(message):
     playing = None
-    while playing != 0 and playing != 1:
+    while playing not in [0,1]:
         try:
             playing = int(input(f"\nDo you want to play again? {message} \n 0 : No \n 1 : Yes \n"))
-            if playing != 0 and playing != 1:
+            if playing not in [0,1]:
                 raise ValueError
         except ValueError:
             print("Please try again.")
