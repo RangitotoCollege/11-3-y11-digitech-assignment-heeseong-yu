@@ -1,4 +1,4 @@
-name = ""
+name = "User"
 games = ["Speed Typing","Wordle","Paper Scissors Rock"]
 def set_name(new_name):
     global name
@@ -13,20 +13,19 @@ def replay(message):
         except ValueError:
             print("Please try again.")
     return (playing)
-def add_leaderboard(line,score):
-    with open('leaderboard.txt', 'r') as leaderboard:
-        modified_leaderboard = leaderboard.readlines()
-        modified_leaderboard[line] = score + "\n"
-    with open('leaderboard.txt', 'w') as leaderboard:
-        leaderboard.writelines(modified_leaderboard)
-def open_leaderboard(line):
-    stripped_leaderboard = []
-    with open('leaderboard.txt', 'r') as leaderboard:
-        leaderboard = leaderboard.readlines()
-        for lines in leaderboard:
-            stripped_leaderboard.append(lines.strip().split())
-        return (stripped_leaderboard[line])
-def view_leaderboard():
+def add_leaderboard(file,score):
+    with open(file, 'a') as f:
+        f.write(f"{name} {score}\n")
+def filter_top3(file):
+    with open(file, 'r') as f:
+        leaderboard = f.readlines()
+        leaderboard = [lines.strip().split() for lines in leaderboard]
+        top3 = sorted(leaderboard,key=lambda x: x[1],reverse=True)[:3]
+        return (top3)
+def view_leaderboard(file,game):
     print("=== Leaderboard ===")
-    for i in range(len(games)):
-        print(f"{games[i]} - " + " : ".join(open_leaderboard(i)))
+    top3 = filter_top3(file)
+    print(f"--- {game} ---")
+    for score in top3:
+        print(" : ".join(score))
+    return()

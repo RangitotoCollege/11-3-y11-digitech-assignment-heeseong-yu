@@ -4,6 +4,7 @@ import utils
 def play():
     #Similar overall structure to other games.
     streak = 0
+    highest_streak = 0
     playing = 1
     #A set of rules is created to determine who wins.
     rules = {
@@ -47,8 +48,8 @@ def play():
             print(f"{utils.name} won!")
             streak += 1
             print(f"You have won {streak} games in a row!")
-            if streak > int(utils.open_leaderboard(2)[1]): 
-                        utils.add_leaderboard(2,str(utils.name) + " " + str(streak))
+            if streak > highest_streak: 
+                        highest_streak = streak
                         print(f"New high record! {utils.name} : {streak} games won in a row!")
         elif winner == computer_hand:
             print(f"Computer won...")
@@ -56,4 +57,5 @@ def play():
         else:
             print("It's a tie. You still have your winning streak.")
         playing = utils.replay("STREAK ENDS IF YOU LEAVE! ")
+    utils.add_leaderboard("paper_scissors_rock_scores.txt",highest_streak)
     return
