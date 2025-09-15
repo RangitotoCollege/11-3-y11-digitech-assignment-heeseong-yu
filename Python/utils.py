@@ -1,4 +1,4 @@
-name = "User"
+name = ""
 games = ["Speed Typing","Wordle","Paper Scissors Rock"]
 def set_name(new_name):
     global name
