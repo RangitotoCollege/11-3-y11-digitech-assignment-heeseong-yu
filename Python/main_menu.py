@@ -22,9 +22,10 @@ def main_menu():
             elif action == 3:
                 paper_scissors_rock.play()
             elif action == 4:
-                utils.view_leaderboard('speed_typing_scores.txt',"Speed Typing")
-                utils.view_leaderboard('wordle_scores.txt',"Wordle")
-                utils.view_leaderboard('paper_scissors_rock_scores.txt',"Paper Scissors Rock")
+                print("=== Leaderboard ===")
+                utils.view_leaderboard('speed_typing_scores.txt',0)
+                utils.view_leaderboard('wordle_scores.txt',1)
+                utils.view_leaderboard('paper_scissors_rock_scores.txt',2)
             elif action == 5:
                 print("Thank you for playing!")
                 break

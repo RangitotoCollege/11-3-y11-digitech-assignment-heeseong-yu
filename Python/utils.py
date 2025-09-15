@@ -16,16 +16,18 @@ def replay(message):
 def add_leaderboard(file,score):
     with open(file, 'a') as f:
         f.write(f"{name} {score}\n")
-def filter_top3(file):
+def filter_top3(file,reverse_order):
     with open(file, 'r') as f:
         leaderboard = f.readlines()
         leaderboard = [lines.strip().split() for lines in leaderboard]
-        top3 = sorted(leaderboard,key=lambda x: x[1],reverse=True)[:3]
+        top3 = sorted(leaderboard,key=lambda x: x[1],reverse=reverse_order)[:3]
         return (top3)
 def view_leaderboard(file,game):
-    print("=== Leaderboard ===")
-    top3 = filter_top3(file)
-    print(f"--- {game} ---")
+    if game == 0:
+        top3 = filter_top3(file,False)
+    else:
+        top3 = filter_top3(file,True)
+    print(f"--- {games[game]} ---")
     for score in top3:
         print(" : ".join(score))
     return()

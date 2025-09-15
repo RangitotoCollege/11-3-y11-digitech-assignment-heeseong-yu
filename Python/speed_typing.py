@@ -3,7 +3,6 @@ import time
 import utils
 def play():
     playing = 1
-    fastest_time = 999999
     print(f"\n === Speed Typing === \n Welcome to speed typing {utils.name}! \n Just type 10 words which were randomly chosen correctly without capitalisation as fast as you can. \n Fastest time goes to the leaderboard! Starts in 3 seconds. Good luck!")
     time.sleep(3)  #Allows the user to read the instruction by waiting 3 seconds
     while playing:  #Until the user says they want to exit, it keeps looping the 
@@ -23,12 +22,9 @@ def play():
             end_time = time.time()
             time_record = round(end_time - start_time,2)  #How fast they typed is calculated by the time the user finished minus the time the user started
             print(time_record, "seconds")
-            if time_record < fastest_time:  #If the user did faster than the fastest record, it becomes the new fastest record.
-                fastest_time = time_record
-                print(f"New high record! {utils.name} : {time_record} seconds")
+            utils.add_leaderboard("speed_typing_scores.txt",time_record)
         else:
             print("Incorrect sentence.")
         playing = utils.replay(" ")
         typing_words_list.close() #Closes the file to manage resources.
-    utils.add_leaderboard("speed_typing_scores.txt",fastest_time)
     return
