@@ -1,4 +1,7 @@
 name = ""
+personal_fastest_speed_typing = 9999999
+personal_highest_wordle_streak = 0
+personal_highest_paper_scissors_rock_streak = 0
 games = ["Speed Typing","Wordle","Paper Scissors Rock"]
 def set_name(new_name):
     global name
@@ -14,8 +17,12 @@ def replay(message):
             print("Please try again.")
     return (playing)
 def add_leaderboard(file,score):
+    name_score = str(name) + " " + str(score) + "\n"
+    with open (file,'r') as f:
+        leaderboard = f.readlines()
     with open(file, 'a') as f:
-        f.write(f"{name} {score}\n")
+        if name_score not in leaderboard:
+            f.write(name_score)
 def filter_top3(file,reverse_order):
     with open(file, 'r') as f:
         leaderboard = f.readlines()

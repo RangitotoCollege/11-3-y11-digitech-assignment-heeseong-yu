@@ -22,9 +22,13 @@ def play():
             end_time = time.time()
             time_record = round(end_time - start_time,2)  #How fast they typed is calculated by the time the user finished minus the time the user started
             print(time_record, "seconds")
-            utils.add_leaderboard("speed_typing_scores.txt",time_record)
+            if time_record < utils.personal_fastest_speed_typing:
+                utils.personal_fastest_speed_typing = time_record
+                print("New Personal High Record!")
         else:
             print("Incorrect sentence.")
         playing = utils.replay(" ")
         typing_words_list.close() #Closes the file to manage resources.
+    if utils.personal_fastest_speed_typing != 9999999:
+        utils.add_leaderboard("speed_typing_scores.txt",utils.personal_fastest_speed_typing)
     return
