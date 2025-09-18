@@ -1,5 +1,5 @@
 """11DGT Python games compendium assessment. Contains text-based games which include speed typing, Wordle and paper, scissors, rock. 
-Each game has a leaderboard system that can be seen."""
+Each game has a leaderboard system that can be seen. This is the main menu."""
 import speed_typing
 import wordle
 import paper_scissors_rock
@@ -7,7 +7,7 @@ import utils
 def main_menu():
     action = 0 
     print("=== Name setting ===\n")
-    while len(utils.name) == 0 or len(utils.name) > 20: 
+    while len(utils.name) == 0 or len(utils.name) > 20:   #Until the user inputs a name between 1 to 20 letters it keeps asking for the name.
         print("Name should be between 1 to 20 letters.")
         utils.set_name(input("What is your name? "))
     print(f"Welcome to Games Conpendium, {utils.name}!")
@@ -23,9 +23,8 @@ def main_menu():
                 paper_scissors_rock.play()
             elif action == 4:
                 print("=== Leaderboard ===")
-                utils.view_leaderboard('speed_typing_scores.txt',0)
-                utils.view_leaderboard('wordle_scores.txt',1)
-                utils.view_leaderboard('paper_scissors_rock_scores.txt',2)
+                for i in range(len(utils.files)): #Loops over all files for all games for each leaderboard viewing.
+                    utils.view_leaderboard(utils.files[i],i)
             elif action == 5:
                 print("Thank you for playing!")
                 break
@@ -33,5 +32,5 @@ def main_menu():
                 raise ValueError
         except ValueError: #If action is not any of the options, it asks the user to try again.
             print("Please try again.")
-if __name__ == "__main__":
+if __name__ == "__main__": #Allows the game to only run when it is executed on this file directly.
     main_menu()

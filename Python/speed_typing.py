@@ -1,3 +1,4 @@
+"""A game of Speed Typing"""
 import random
 import time
 import utils
@@ -29,6 +30,6 @@ def play():
             print("Incorrect sentence.")
         playing = utils.replay(" ")
         typing_words_list.close() #Closes the file to manage resources.
-    if utils.personal_fastest_speed_typing != 9999999:
-        utils.add_leaderboard("speed_typing_scores.txt",utils.personal_fastest_speed_typing)
+    if utils.personal_fastest_speed_typing != 0: #When the user exits the game, their personal best is appended to the file if there was none before and overwrites if there was a score before. 0 is a placeholder variable and impossible so doesn't count.
+        utils.add_leaderboard("speed_typing_scores.txt",utils.personal_fastest_speed_typing,True)
     return

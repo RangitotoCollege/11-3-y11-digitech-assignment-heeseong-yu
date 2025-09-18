@@ -1,12 +1,14 @@
+"""All the functions and variables that are used globally in the file is defined here"""
 name = ""
-personal_fastest_speed_typing = 9999999
+personal_fastest_speed_typing = 0
 personal_highest_wordle_streak = 0
 personal_highest_paper_scissors_rock_streak = 0
 games = ["Speed Typing","Wordle","Paper Scissors Rock"]
-def set_name(new_name):
+files = ['speed_typing_scores.txt','wordle_scores.txt','paper_scissors_rock_scores.txt']
+def set_name(new_name): #Allows the name to be used in all files by using utils.name and it can be set in the main menu.
     global name
     name = new_name.strip()
-def replay(message):
+def replay(message): #Asks the user for replaying the game until the user writes 1 or 0.
     playing = None
     while playing not in [0,1]:
         try:
@@ -16,20 +18,35 @@ def replay(message):
         except ValueError:
             print("Please try again.")
     return (playing)
-def add_leaderboard(file,score):
-    name_score = str(name) + " " + str(score) + "\n"
-    with open (file,'r') as f:
-        leaderboard = f.readlines()
-    with open(file, 'a') as f:
-        if name_score not in leaderboard:
-            f.write(name_score)
-def filter_top3(file,reverse_order):
+def overwrite(file,score): #Opens a specific file, gets the last line, modifiy it to user's score and rewrite the file with the modification.
     with open(file, 'r') as f:
         leaderboard = f.readlines()
-        leaderboard = [lines.strip().split() for lines in leaderboard]
-        top3 = sorted(leaderboard,key=lambda x: x[1],reverse=reverse_order)[:3]
+    leaderboard[-1] = score
+    with open(file,'w') as f:
+        f.writelines(leaderboard)
+def add_leaderboard(file,score,reverse_order): #Overwrites the user's score into their personal best. 
+    name_score = str(name) + " " + str(score) + "\n" #Score take the format name score\n
+    with open (file,'r') as f:
+        leaderboard = f.readlines()
+        try:
+            if leaderboard[-1].split()[0] != name: #If the user has no personal score in the file yet, it needs to be newly appended.
+                raise IndexError
+            if reverse_order == True: #If it's speed typing, the lower the score, the better so order is reverse.
+                if score < float(leaderboard[-1].split()[1]):
+                    overwrite(file,name_score)
+            else:
+                if score > float(leaderboard[-1].split()[1]):
+                    overwrite(file,name_score)
+        except IndexError:
+            with open(file,'a') as f: #Appends the score into the last line of the file.
+                f.write(name_score)
+def filter_top3(file,reverse_order): #Filters top 3 that is shown on the leaderboard.
+    with open(file, 'r') as f:
+        leaderboard = f.readlines()
+        leaderboard = [lines.strip().split() for lines in leaderboard] #Turns the file into a list of lists which contain [name,score]
+        top3 = sorted(leaderboard,key=lambda x: x[1],reverse=reverse_order)[:3]  #Sorts the list based on the score, reverse if speed typing.
         return (top3)
-def view_leaderboard(file,game):
+def view_leaderboard(file,game): #Goes over the top 3 for a specific game and prints them in a nice format.
     if game == 0:
         top3 = filter_top3(file,False)
     else:

@@ -1,3 +1,4 @@
+"""A game of Paper Scissors Rock"""
 import random
 import time
 import utils
@@ -57,5 +58,5 @@ def play():
             print("It's a tie. You still have your winning streak.")
         playing = utils.replay("STREAK ENDS IF YOU LEAVE! ")
     if utils.personal_highest_paper_scissors_rock_streak > 0:
-        utils.add_leaderboard("paper_scissors_rock_scores.txt",utils.personal_highest_paper_scissors_rock_streak)
+        utils.add_leaderboard("paper_scissors_rock_scores.txt",utils.personal_highest_paper_scissors_rock_streak,False)
     return

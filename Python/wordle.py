@@ -1,3 +1,4 @@
+"""A game of Wordle"""
 import random
 import utils
 def play():
@@ -47,5 +48,5 @@ def play():
         wordle_words_list.close() 
         wordle_answers_list.close()
     if utils.personal_highest_wordle_streak > 0: 
-        utils.add_leaderboard("wordle_scores.txt",utils.personal_highest_wordle_streak)
+        utils.add_leaderboard("wordle_scores.txt",utils.personal_highest_wordle_streak,False)
     return
