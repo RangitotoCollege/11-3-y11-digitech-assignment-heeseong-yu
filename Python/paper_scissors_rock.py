@@ -48,15 +48,13 @@ def play():
             print(f"{utils.name} won!")
             streak += 1
             print(f"You have won {streak} games in a row!")
-            if streak > utils.personal_highest_paper_scissors_rock_streak: 
-                        utils.personal_highest_paper_scissors_rock_streak = streak
-                        print(f"New high record! {utils.name} : {streak} games won in a row!")
+            if streak > utils.check_high_score("paper_scissors_rock_scores.txt") and streak != 0: 
+                print(f"New high record! {utils.name} : {streak} games won in a row!")
+                utils.add_leaderboard("paper_scissors_rock_scores.txt",streak)
         elif winner == computer_hand:
             print(f"Computer won...")
             streak = 0
         else:
             print("It's a tie. You still have your winning streak.")
         playing = utils.replay("STREAK ENDS IF YOU LEAVE! ")
-    if utils.personal_highest_paper_scissors_rock_streak > 0:
-        utils.add_leaderboard("paper_scissors_rock_scores.txt",utils.personal_highest_paper_scissors_rock_streak,False)
     return

@@ -5,7 +5,8 @@ def play():
     streak = 0
     playing = 1
     #Similar overall structure as speed_typing
-    print(f"\n === Wordle === \n Welcome to Wordle {utils.name}! \n Guess a random 5-letter English word in 6 tries. \n If your try contains: \n Correct letter at the correct place, GREEN \n Correct letter but at the wrong place, YELLOW \n Incorrect letter, RED, will be printed accordingly. \n Keep playing to get the highest win streak and go in the leaderboard. \n Good luck!")  
+    print(f"\n === Wordle === \n Welcome to Wordle {utils.name}! \n Guess a random 5-letter English word in 6 tries. \n If your try contains: \n Correct letter at the correct place, GREEN \n Correct letter but at the wrong place, YELLOW \n Incorrect letter, RED, will be printed accordingly. \n Keep playing to get the highest win streak and go in the leaderboard. \n Type 'quit' or 'exit' to quit the game. \n Good luck!")  
+    terminator = ["quit","exit"]
     while playing: 
         tries = 6  #The user has 6 guesses of words.
         wordle_words_list = open("wordle_words.txt") 
@@ -17,6 +18,8 @@ def play():
             print("\n======")
             guess_hint = []  
             guess = input("\n Guess : ").lower().strip()
+            if guess in terminator:
+                break
             if guess in stripped_wordle_words_list:  #If the guess is in the possible solutions, it allows the guess.
                 tries -= 1
                 for i in range(5):  #Goes over the word to check if it is in the right place, in the wrong place, or not at all and appends the corresponding colour in order.
@@ -36,9 +39,9 @@ def play():
                 print("Correct!")
                 streak += 1
                 print(f"You have got {streak} correct answers in a row!")
-                if streak > utils.personal_highest_wordle_streak: 
-                    utils.personal_highest_wordle_streak = streak
+                if streak > utils.check_high_score("wordle_scores.txt") and streak != 0: 
                     print(f"New high record! {utils.name} : {streak} correct answers in a row!")
+                    utils.add_leaderboard("wordle_scores.txt",streak)
                     tries = 6  #To prevent guessing correctly on the last try printing that you didn't get it, tries resets to 6.
                     break
         if tries <= 0: #If the game ends without the user guessing it correctly, the streak resets and the word is revealed.
@@ -47,6 +50,4 @@ def play():
         playing = utils.replay("STREAK ENDS IF YOU LEAVE! ")
         wordle_words_list.close() 
         wordle_answers_list.close()
-    if utils.personal_highest_wordle_streak > 0: 
-        utils.add_leaderboard("wordle_scores.txt",utils.personal_highest_wordle_streak,False)
     return

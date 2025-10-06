@@ -1,8 +1,5 @@
 """All the functions and variables that are used globally in the file is defined here"""
 name = ""
-personal_fastest_speed_typing = 0
-personal_highest_wordle_streak = 0
-personal_highest_paper_scissors_rock_streak = 0
 games = ["Speed Typing","Wordle","Paper Scissors Rock"]
 files = ['speed_typing_scores.txt','wordle_scores.txt','paper_scissors_rock_scores.txt']
 def set_name(new_name): #Allows the name to be used in all files by using utils.name and it can be set in the main menu.
@@ -32,8 +29,16 @@ def find_user(leaderboard):
         return(None)
     except:
         return(None)
-def add_leaderboard(file,score,reverse_order): #Overwrites the user's score into their personal best. 
-    name_score = str(name) + " " + str(score) + "\n" #Score take the format name score\n
+def check_high_score(file):
+    with open (file,'r') as f:
+        leaderboard = f.readlines()
+    user_index = find_user(leaderboard)
+    if user_index == None:
+        return (0)
+    score = float(leaderboard[user_index].split()[1])
+    return(score)
+def add_leaderboard(file,score): #Overwrites the user's score into their personal best. 
+    name_score = str(name) + " " + str(score) + "\n" #Score take the format "name score\n"
     with open (file,'r') as f:
         leaderboard = f.readlines()
         user_index = find_user(leaderboard)
@@ -41,12 +46,7 @@ def add_leaderboard(file,score,reverse_order): #Overwrites the user's score into
             with open(file,'a') as f: #Appends the score into the last line of the file.
                 f.write(name_score)
                 return()
-        if reverse_order == True: #If it's speed typing, the lower the score, the better so order is reverse.
-            if score < float(leaderboard[user_index].split()[1]):
-                 overwrite(file,name_score,user_index)
-        else:
-            if score > float(leaderboard[user_index].split()[1]):
-                overwrite(file,name_score,user_index)
+        overwrite(file,name_score,user_index)
             
 def filter_top3(file,reverse_order): #Filters top 3 that is shown on the leaderboard.
     with open(file, 'r') as f:
