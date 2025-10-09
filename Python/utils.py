@@ -5,11 +5,11 @@ files = ["Files\speed_typing_scores.txt","Files\wordle_scores.txt","Files\paper_
 def set_name(new_name): #Allows the name to be used in all files by using utils.name and it can be set in the main menu.
     global name
     name = new_name.strip()
-def replay(message): #Asks the user for replaying the game until the user writes 1 or 0.
+def replay(extra_message): #Asks the user for replaying the game until the user writes 1 or 0.
     playing = None
     while playing not in [0,1]:
         try:
-            playing = int(input(f"\nDo you want to play again? {message} \n 0 : No \n 1 : Yes \n"))
+            playing = int(input(f"\nDo you want to play again? {extra_message} \n 0 : No \n 1 : Yes \n"))
             if playing not in [0,1]:
                 raise ValueError
         except ValueError:
@@ -41,19 +41,19 @@ def add_leaderboard(file,score): #Overwrites the user's score into their persona
     name_score = str(name) + " " + str(score) + "\n" #Score take the format "name score\n"
     with open (file,'r') as f:
         leaderboard = f.readlines()
-        user_index = find_user(leaderboard)
-        if user_index == None: #If the user has no personal score in the file yet, it needs to be newly appended.
-            with open(file,'a') as f: #Appends the score into the last line of the file.
-                f.write(name_score)
-                return()
-        overwrite(file,name_score,user_index)
+    user_index = find_user(leaderboard)
+    if user_index == None: #If the user has no personal score in the file yet, it needs to be newly appended.
+        with open(file,'a') as f: #Appends the score into the last line of the file.
+            f.write(name_score)
+            return()
+    overwrite(file,name_score,user_index)
             
 def filter_top3(file,reverse_order): #Filters top 3 that is shown on the leaderboard.
     with open(file, 'r') as f:
         leaderboard = f.readlines()
-        leaderboard = [lines.strip().split() for lines in leaderboard] #Turns the file into a list of lists which contain [name,score]
-        top3 = sorted(leaderboard,key=lambda x: x[1],reverse=reverse_order)[:3]  #Sorts the list based on the score, reverse if speed typing.
-        return (top3)
+    leaderboard = [lines.strip().split() for lines in leaderboard] #Turns the file into a list of lists which contain [name,score]
+    top3 = sorted(leaderboard,key=lambda x: x[1],reverse=reverse_order)[:3]  #Sorts the list based on the score, reverse if speed typing.
+    return (top3)
 def view_leaderboard(file,game): #Goes over the top 3 for a specific game and prints them in a nice format.
     if game == 0:
         top3 = filter_top3(file,False)

@@ -14,7 +14,6 @@ def main_menu():
     while action != "exit": #Keep taking inputs and allow the user to take the following action. The user can keep playing as much as they want.
         try:
             action = int(input("\n === Main Menu === \n What do you wish to do? \n 1 : speed typing \n 2 : wordle \n 3 : paper scissors rock \n 4 : leaderboard, \n 5 : exit \n"))
-        
             if action == 1:
                 speed_typing.play()
             elif action == 2:
