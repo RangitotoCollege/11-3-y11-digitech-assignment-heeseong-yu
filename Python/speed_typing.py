@@ -8,7 +8,7 @@ def play():
     time.sleep(3)  #Allows the user to read the instruction by waiting 3 seconds
     while playing:  #Until the user says they want to exit, it keeps looping the 
         print("\n======")
-        typing_words_list = open("common_10000_words.txt")  #Opens a file of 10000 common words 
+        typing_words_list = open("Files\common_10000_words.txt")  #Opens a file of 10000 common words 
         stripped_typing_words_list = [word.strip() for word in typing_words_list.readlines()] #Seperates them into a list and strips every element in the list to create a list with no line breaks.
         sentence = ""
         for i in range(10):
@@ -23,9 +23,9 @@ def play():
             end_time = time.time()
             time_record = round(end_time - start_time,2)  #How fast they typed is calculated by the time the user finished minus the time the user started
             print(time_record, "seconds")
-            if utils.check_high_score("speed_typing_scores.txt") == 0 or (time_record < utils.check_high_score("speed_typing_scores.txt") and time_record != 0):
+            if utils.check_high_score("Files\speed_typing_scores.txt") == 0 or (time_record < utils.check_high_score("Files\speed_typing_scores.txt") and time_record != 0):
                 print("New Personal High Record!")
-                utils.add_leaderboard("speed_typing_scores.txt",time_record)
+                utils.add_leaderboard("Files\speed_typing_scores.txt",time_record)
         else:
             print("Incorrect sentence.")
         playing = utils.replay(" ")

@@ -9,9 +9,9 @@ def play():
     terminator = ["quit","exit"]
     while playing: 
         tries = 6  #The user has 6 guesses of words.
-        wordle_words_list = open("wordle_words.txt") 
+        wordle_words_list = open("Files\wordle_words.txt") 
         stripped_wordle_words_list = [word.strip() for word in wordle_words_list.readlines()]
-        wordle_answers_list = open("wordle_answers.txt")
+        wordle_answers_list = open("Files\wordle_answers.txt")
         stripped_wordle_answers_list = [word.strip() for word in wordle_answers_list.readlines()]  #There is a seperate list for possible answers and possible guesses to make answers easy while making guesses have more freedom.
         word = stripped_wordle_answers_list[random.randint(0,len(stripped_wordle_answers_list)-1)]  #Gets a random word from the 5-letter word list
         while tries != 0:  #Until the user uses all guesses, it repeats asking the user to input a guess.
@@ -39,9 +39,9 @@ def play():
                 print("Correct!")
                 streak += 1
                 print(f"You have got {streak} correct answers in a row!")
-                if streak > utils.check_high_score("wordle_scores.txt") and streak != 0: 
+                if streak > utils.check_high_score("Files\wordle_scores.txt") and streak != 0: 
                     print(f"New high record! {utils.name} : {streak} correct answers in a row!")
-                    utils.add_leaderboard("wordle_scores.txt",streak)
+                    utils.add_leaderboard("Files\wordle_scores.txt",streak)
                     tries = 6  #To prevent guessing correctly on the last try printing that you didn't get it, tries resets to 6.
                     break
         if tries <= 0: #If the game ends without the user guessing it correctly, the streak resets and the word is revealed.

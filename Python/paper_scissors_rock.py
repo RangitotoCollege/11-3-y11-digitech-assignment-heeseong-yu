@@ -48,9 +48,9 @@ def play():
             print(f"{utils.name} won!")
             streak += 1
             print(f"You have won {streak} games in a row!")
-            if streak > utils.check_high_score("paper_scissors_rock_scores.txt") and streak != 0: 
+            if streak > utils.check_high_score("Files\paper_scissors_rock_scores.txt") and streak != 0: 
                 print(f"New high record! {utils.name} : {streak} games won in a row!")
-                utils.add_leaderboard("paper_scissors_rock_scores.txt",streak)
+                utils.add_leaderboard("Files\paper_scissors_rock_scores.txt",streak)
         elif winner == computer_hand:
             print(f"Computer won...")
             streak = 0

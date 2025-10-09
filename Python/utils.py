@@ -1,7 +1,7 @@
 """All the functions and variables that are used globally in the file is defined here"""
 name = ""
 games = ["Speed Typing","Wordle","Paper Scissors Rock"]
-files = ['speed_typing_scores.txt','wordle_scores.txt','paper_scissors_rock_scores.txt']
+files = ["Files\speed_typing_scores.txt","Files\wordle_scores.txt","Files\paper_scissors_rock_scores.txt"]
 def set_name(new_name): #Allows the name to be used in all files by using utils.name and it can be set in the main menu.
     global name
     name = new_name.strip()
