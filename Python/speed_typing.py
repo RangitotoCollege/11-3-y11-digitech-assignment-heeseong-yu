@@ -8,7 +8,7 @@ def play():
     time.sleep(3)  #Allows the user to read the instruction by waiting 3 seconds
     while playing:  #Until the user says they want to exit, it keeps looping the 
         print("\n======")
-        with open("Files\common_10000_words.txt","r") as f:
+        with open("Files\common_words.txt","r") as f:
             typing_words_list = [word.strip() for word in f.readlines()] #Seperates them into a list and strips every element in the list to create a list with no line breaks.
         target_sentence = ""
         for i in range(10):

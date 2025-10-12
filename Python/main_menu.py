@@ -11,7 +11,7 @@ def main_menu():
         print("Name should be between 1 to 20 letters.")
         utils.set_name(input("What is your name? "))
     print(f"Welcome to Games Conpendium, {utils.name}!")
-    while action != "exit": #Keep taking inputs and allow the user to take the following action. The user can keep playing as much as they want.
+    while action != 5: #Keep taking inputs and allow the user to take the following action. The user can keep playing as much as they want.
         try:
             action = int(input("\n === Main Menu === \n What do you wish to do? \n 1 : speed typing \n 2 : wordle \n 3 : paper scissors rock \n 4 : leaderboard, \n 5 : exit \n"))
             if action == 1:
@@ -26,7 +26,6 @@ def main_menu():
                     utils.view_leaderboard(utils.files[i],i)
             elif action == 5:
                 print("Thank you for playing!")
-                break
             else:
                 raise ValueError
         except ValueError: #If action is not any of the options, it asks the user to try again.
