@@ -91,7 +91,7 @@ def play():
                     "Files\\paper_scissors_rock_scores.txt", streak)
         # If user lose, reset streak.
         elif winner == computer_hand:
-            print(f"The computer has won...")
+            print("The computer has won...")
             streak = 0
         # If tie, keep streak.
         else:

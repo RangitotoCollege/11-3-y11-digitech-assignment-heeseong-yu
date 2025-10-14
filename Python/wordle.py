@@ -4,7 +4,7 @@ import utils
 
 
 def play():
-    """Run the Wordle game. """
+    """Run the Wordle game."""
     streak = 0
     playing = 1
     print("\n=== Wordle ==="
@@ -14,7 +14,7 @@ def play():
           "\nCorrect letter at the correct place, GREEN,"
           "\nCorrect letter but at the wrong place, YELLOW,"
           "\nIncorrect letter, RED, will be printed accordingly."
-          "\nKeep guessing correctly to get the highest win streak and go in the leaderboard."
+          "\nKeep guessing correctly to increase streak and get in the leaderboard."
           "\nType 'quit' or 'exit' to quit the game."
           "\nGood luck!")
     terminator = ["quit", "exit"]
@@ -75,7 +75,7 @@ def play():
             # score.
             if streak > utils.check_high_score("Files\\wordle_scores.txt"):
                 print(
-                    f"New high record! {utils.name} : {streak} correct answers in a row!")
+                    f"New high record! {utils.name} : {streak} correct in a row!")
                 utils.add_leaderboard("Files\\wordle_scores.txt", streak)
                 break
         # Asks the user for a replay.

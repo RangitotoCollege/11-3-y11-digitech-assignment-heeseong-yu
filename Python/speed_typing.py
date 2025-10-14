@@ -41,11 +41,10 @@ def play():
             # ending time.
             time_record = round(end_time - start_time, 2)
             print(time_record, "seconds")
-            # If the user has no high scores yet, appends their name and high score.
-            # Or if the user their previous high score, updates their high
-            # score.
+            # If user has no high scores yet, append their name and high score.
+            # Or if user have a previous high score, update their high score.
             if utils.check_high_score("Files\\speed_typing_scores.txt") == 0 or (
-                    time_record < utils.check_high_score("Files\\speed_typing_scores.txt")):
+                time_record < utils.check_high_score("Files\\speed_typing_scores.txt")):
                 print("New Personal High Record!")
                 utils.add_leaderboard(
                     "Files\\speed_typing_scores.txt", time_record)

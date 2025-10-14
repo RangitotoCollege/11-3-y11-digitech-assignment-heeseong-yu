@@ -1,8 +1,8 @@
 """File storing useful tools used in all of the files.
 
- All the functions and variables that are used globally are defined here.
- """
-name = "name"
+All the functions and variables that are used globally are defined here.
+"""
+name = ""
 games = ["Speed Typing",
          "Wordle",
          "Paper Scissors Rock"]
@@ -82,7 +82,7 @@ def add_leaderboard(file, score):
 
 
 def filter_top3(file, reverse_order):
-    """Returns the top 3 scores in the file.
+    """Return the top 3 scores in the file.
 
     Turns the file into a list of tuples which contain (name,score)
     Sorts the list based on the score, reverse if speed typing.
