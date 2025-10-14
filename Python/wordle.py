@@ -4,39 +4,48 @@ import utils
 
 
 def play():
+    """Run the Wordle game. """
     streak = 0
     playing = 1
-    # Similar overall structure as speed_typing
-    print(f"\n === Wordle === \n Welcome to Wordle {utils.name}! \n Guess a random 5-letter English word in 6 tries. \n If your try contains: \n Correct letter at the correct place, GREEN \n Correct letter but at the wrong place, YELLOW \n Incorrect letter, RED, will be printed accordingly. \n Keep playing to get the highest win streak and go in the leaderboard. \n Type 'quit' or 'exit' to quit the game. \n Good luck!")
+    print("\n=== Wordle ==="
+          f"\nWelcome to Wordle {utils.name}!"
+          "\nGuess a random 5-letter English word in 6 tries."
+          "\nIf your try contains:"
+          "\nCorrect letter at the correct place, GREEN,"
+          "\nCorrect letter but at the wrong place, YELLOW,"
+          "\nIncorrect letter, RED, will be printed accordingly."
+          "\nKeep guessing correctly to get the highest win streak and go in the leaderboard."
+          "\nType 'quit' or 'exit' to quit the game."
+          "\nGood luck!")
     terminator = ["quit", "exit"]
     while playing:
-        tries = 6  # The user has 6 guesses of words.
-        with open("Files\\wordle_words.txt", "r") as f:
-            wordle_words_list = [word.strip() for word in f.readlines()]
+        # The user has 6 guesses of words.
+        tries = 6
+        # Turns the files into a stipped list.
+        # Seperate list for possible answers and possible guesses.
+        # Increases user freedom while making answers easy enough.
+        with open("Files\\wordle_guesses.txt", "r") as f:
+            wordle_guesses_list = [word.strip() for word in f.readlines()]
         with open("Files\\wordle_answers.txt", "r") as f:
-            # There is a seperate list for possible answers and possible
-            # guesses to make answers easy while making guesses have more
-            # freedom.
             wordle_answers_list = [word.strip() for word in f.readlines()]
-        # Gets a random word from the 5-letter word list
+        # Gets a random word from the 5 letter word list.
         target_word = wordle_answers_list[random.randint(
             0, len(wordle_answers_list) - 1)]
-        # Until the user uses all guesses, it repeats asking the user to input
-        # a guess.
+        # Until all guesses are used, repeat asking for a guess.
         while tries != 0:
             match = []
             guess = input("\nGuess : ").lower().strip()
+            # End the game if user inputs a terminator.
             if guess in terminator:
                 break
-            if guess not in wordle_words_list:
+            # Guess rejected if it is not an allowed word.
+            if guess not in wordle_guesses_list:
                 print("Invalid word.")
-                # If the guess is in the possible solutions, it allows the
-                # guess.
                 continue
+            # If the guess is valid, one of the tries is used.
             tries -= 1
-            # Goes over the word to check if it is in the right place, in the
-            # wrong place, or not at all and appends the corresponding colour
-            # in order.
+            # Go over the character in the word to check.
+            # Appends the corresponding colour in order to a list.
             for i in range(5):
                 if guess[i] == target_word[i]:
                     match.append("GREEN")
@@ -44,26 +53,31 @@ def play():
                     match.append("YELLOW")
                 else:
                     match.append("RED")
-            # Prints out to the user what letter is in which state and how many
-            # tries they have left.
+            # Print out state of each letter and the remaining tries.
             for colours in match:
                 print(colours, end=" ")
             print(f"\n{tries} tries left.")
-            # If the user correctly guesses the word, it increases their streak
-            # and ends the game.
+            # If guess is incorrect, ask a new guess again.
             if guess != target_word:
-                if tries == 0:  # If the game ends without the user guessing it correctly, the streak resets and the word is revealed.
+                # If the user has no guesses remaining, reveals answer and end
+                # the game.
+                if tries == 0:
                     print(f"Unfortunate, the answer was: {target_word}.")
                     streak = 0
                     break
                 continue
+            # If guess is correct, increase streak.
             print("Correct!")
             streak += 1
             print(f"You have got {streak} correct answers in a row!")
+            # If the user gets a high score,
+            # either append or update depending on if they had a previous high
+            # score.
             if streak > utils.check_high_score("Files\\wordle_scores.txt"):
                 print(
                     f"New high record! {utils.name} : {streak} correct answers in a row!")
                 utils.add_leaderboard("Files\\wordle_scores.txt", streak)
                 break
+        # Asks the user for a replay.
         playing = utils.replay("STREAK ENDS IF YOU LEAVE! ")
     return

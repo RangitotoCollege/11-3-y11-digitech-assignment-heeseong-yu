@@ -6,9 +6,9 @@ name = "name"
 games = ["Speed Typing",
          "Wordle",
          "Paper Scissors Rock"]
-files = ["Files\speed_typing_scores.txt",
-         "Files\wordle_scores.txt",
-         "Files\paper_scissors_rock_scores.txt"]
+files = ["Files\\speed_typing_scores.txt",
+         "Files\\wordle_scores.txt",
+         "Files\\paper_scissors_rock_scores.txt"]
 
 
 def set_name(new_name):
@@ -49,19 +49,19 @@ def find_user(leaderboard):
     """Return the index of the user in the score file."""
     for scores in leaderboard:
         if scores.split()[0] == name:
-            return(leaderboard.index(scores))
-    return(None)
+            return (leaderboard.index(scores))
+    return (None)
 
 
 def check_high_score(file):
     """Return the highest score of the user."""
-    with open (file, 'r') as f:
+    with open(file, 'r') as f:
         leaderboard = f.readlines()
     user_index = find_user(leaderboard)
     if user_index is None:
         return (0)
     score = float(leaderboard[user_index].split()[1])
-    return(score)
+    return (score)
 
 
 def add_leaderboard(file, score):
@@ -77,7 +77,7 @@ def add_leaderboard(file, score):
     if user_index is None:
         with open(file, 'a') as f:
             f.write(name_score)
-            return()
+            return ()
     overwrite(file, name_score, user_index)
 
 
@@ -94,7 +94,7 @@ def filter_top3(file, reverse_order):
     return (top3)
 
 
-def view_leaderboard(file,game):
+def view_leaderboard(file, game):
     """Go over the top 3 for a specific game and print in a nice format.
 
     The order is reversed for speed typing as the faster the better.
@@ -106,4 +106,4 @@ def view_leaderboard(file,game):
     print(f"--- {games[game]} ---")
     for score in top3:
         print(" : ".join(score))
-    return()
+    return ()
