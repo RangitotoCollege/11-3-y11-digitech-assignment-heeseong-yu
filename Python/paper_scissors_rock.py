@@ -75,7 +75,7 @@ def play():
         winner = rules.get(
             (computer_hand, user_hand), rules.get(
                 (user_hand, computer_hand), 'tie'))
-        # Delay to prvent user from spamming and give dramatic effect.
+        # Delay to prevent user from spamming and give dramatic effect.
         time.sleep(0.5)
         print(f"{utils.name}: {user_hand}{hands_emoji[user_hand]}")
         time.sleep(0.5)
