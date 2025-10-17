@@ -24,11 +24,11 @@ if __name__ == "__main__":
         try:
             action = int(input("\n=== Main Menu ==="
                                "\nWhat do you wish to do?,"
-                               "\n1 : speed typing"
-                               "\n2 : wordle"
-                               "\n3 : paper scissors rock"
-                               "\n4 : leaderboard,"
-                               "\n5 : exit\n"))
+                               "\n1 : Speed Typing"
+                               "\n2 : Wordle"
+                               "\n3 : Paper Scissors Rock"
+                               "\n4 : Leaderboard,"
+                               "\n5 : Exit\n"))
             if action == 1:
                 speed_typing.play()
             elif action == 2:
@@ -40,7 +40,7 @@ if __name__ == "__main__":
                 # Loops over all games.
                 # Then prints the corresponding top 3 leaderboard for each.
                 for i in range(len(utils.games)):
-                    utils.view_leaderboard(utils.files[i], i)
+                    utils.print_leaderboard(i)
             elif action == 5:
                 print("Thank you for playing!")
         # If action is not any of the options, it asks the user to try again.

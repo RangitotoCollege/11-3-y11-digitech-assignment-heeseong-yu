@@ -21,9 +21,9 @@ def play():
     while playing:
         # The user has 6 guesses of words.
         tries = 6
-        # Turns the files into a stipped list.
-        # Seperate list for possible answers and possible guesses.
-        # Increases user freedom while making answers easy enough.
+        # Turn the files into a stripped list.
+        # List of possible answers and possible guesses.
+        # This increases user freedom while making answers easy enough.
         with open("Files\\wordle_guesses.txt", "r") as f:
             wordle_guesses_list = [word.strip() for word in f.readlines()]
         with open("Files\\wordle_answers.txt", "r") as f:
@@ -59,21 +59,20 @@ def play():
             print(f"\n{tries} tries left.")
             # If guess is incorrect, ask a new guess again.
             if guess != target_word:
-                # If the user has no guesses remaining, reveals answer and end
-                # the game.
+                # If no guesses remain and the last guess was incorrect,
+                # reveal answer and end the game.
                 if tries == 0:
                     print(f"Unfortunate, the answer was: {target_word}.")
                     streak = 0
                     break
                 continue
-            # If guess is correct, increase streak.
+            # If the guess is correct, increase streak.
             print("Correct!")
             streak += 1
             print(f"You have got {streak} correct answers in a row!")
-            # If the user gets a high score,
-            # either append or update depending on if they had a previous high
-            # score.
-            if streak > utils.check_high_score("Files\\wordle_scores.txt"):
+            # If the user gets a high score, either append or update,
+            # depending on if they had a previous high score.
+            if streak > utils.get_user_high_score("Files\\wordle_scores.txt"):
                 print(
                     f"New high record! {utils.name} : {streak} correct in a row!")
                 utils.add_leaderboard("Files\\wordle_scores.txt", streak)

@@ -14,15 +14,14 @@ def play():
         "\nUse correct spacing and capitalisation."
         "\nFastest time is saved. Aim to be on the leaderboard!"
         "\nStarts in 3 seconds. Good luck!")
-    # Allows the user to read the instruction by waiting 3 seconds
+    # Allow the user to read the instruction by waiting 3 seconds
     time.sleep(3)
     while playing:
         print("\n======")
-        # Seperates words file into a list and strips every element
+        # Seperate words file into a stripped list.
         with open("Files\\common_words.txt", "r") as f:
             typing_words_list = [word.strip() for word in f.readlines()]
-        # Creates a 10 word sentence by adding random word to a blank string 10
-        # times.
+        # Create a sentence by adding random word to a blank string 10 times.
         target_sentence = ""
         for i in range(10):
             target_sentence += typing_words_list[random.randint(
@@ -34,20 +33,19 @@ def play():
         print(f"Type: {target_sentence}")
         start_time = time.time()
         user_sentence = input("Type: ")
-        # If the user sentence matches target sentnece, record is calculated.
+        # If the user sentence match target sentnece, calculate record.
         if user_sentence.strip() == target_sentence.strip():
             end_time = time.time()
-            # Record is calculated by the difference between starting and the
-            # ending time.
+            # Time record is calculated by the difference between the
+            # starting and the ending time.
             time_record = round(end_time - start_time, 2)
             print(time_record, "seconds")
-            # If user has no high scores yet, append their name and high score.
-            # Or if user have a previous high score, update their high score.
-            if utils.check_high_score("Files\\speed_typing_scores.txt") == 0 or (
-                time_record < utils.check_high_score("Files\\speed_typing_scores.txt")):
+            # If user has no high scores yet, append name and high score.
+            # Or if user has a previous high score, update high score.
+            if utils.get_user_high_score("Files\\speed_typing_scores.txt") == 0 or (
+                    time_record < utils.get_user_high_score("Files\\speed_typing_scores.txt")):
                 print("New Personal High Record!")
-                utils.add_leaderboard(
-                    "Files\\speed_typing_scores.txt", time_record)
+                utils.add_leaderboard("Files\\speed_typing_scores.txt", time_record)
         else:
             print("Incorrect sentence.")
         # Asks for the user to play the game again.

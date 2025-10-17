@@ -45,19 +45,22 @@ def overwrite(file, score, index):
         f.writelines(leaderboard)
 
 
-def find_user(leaderboard):
+def get_user_index(leaderboard):
     """Return the index of the user in the score file."""
-    for scores in leaderboard:
-        if scores.split()[0] == name:
-            return (leaderboard.index(scores))
-    return (None)
+    try:
+        for scores in leaderboard:
+            if scores.split()[0] == name:
+                return (leaderboard.index(scores))
+        return (None)
+    except IndexError:
+        return (None)
 
 
-def check_high_score(file):
+def get_user_high_score(file):
     """Return the highest score of the user."""
     with open(file, 'r') as f:
         leaderboard = f.readlines()
-    user_index = find_user(leaderboard)
+    user_index = get_user_index(leaderboard)
     if user_index is None:
         return (0)
     score = float(leaderboard[user_index].split()[1])
@@ -65,15 +68,16 @@ def check_high_score(file):
 
 
 def add_leaderboard(file, score):
-    r"""Overwrite the user's new high score into their previous high score.
+    r"""Add the user's score in a specific game into the leaderboard.
 
     Score takes the format "name score\n"
-    If the user has no high score yet, it's newly appended to the last line.
+    If user has a previous high score, overwrite it into their new best.
+    Else, newly append to the last line of the file.
     """
     name_score = str(name) + " " + str(score) + "\n"
     with open(file, 'r') as f:
         leaderboard = f.readlines()
-    user_index = find_user(leaderboard)
+    user_index = get_user_index(leaderboard)
     if user_index is None:
         with open(file, 'a') as f:
             f.write(name_score)
@@ -90,20 +94,21 @@ def filter_top3(file, reverse_order):
     with open(file, 'r') as f:
         leaderboard = f.readlines()
     leaderboard = [tuple(lines.strip().split()) for lines in leaderboard]
+    # Sort the leaderboard in wanted order and slice the first 3 elements.
     top3 = sorted(leaderboard, key=lambda x: x[1], reverse=reverse_order)[:3]
     return (top3)
 
 
-def view_leaderboard(file, game):
+def print_leaderboard(game_number):
     """Go over the top 3 for a specific game and print in a nice format.
 
     The order is reversed for speed typing as the faster the better.
     """
-    if game == 0:
-        top3 = filter_top3(file, False)
+    if game_number == 0:
+        top3 = filter_top3(files[game_number], False)
     else:
-        top3 = filter_top3(file, True)
-    print(f"--- {games[game]} ---")
+        top3 = filter_top3(files[game_number], True)
+    print(f"--- {games[game_number]} ---")
     for score in top3:
         print(" : ".join(score))
-    return ()
+    return
