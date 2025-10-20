@@ -38,6 +38,7 @@ def play():
             # End the game if the user inputs a terminator.
             if guess in terminator:
                 print(f"The answer was: {target_word}.")
+                streak = 0
                 break
             # Guess rejected if it is not an allowed word.
             if guess not in wordle_guesses_list:
