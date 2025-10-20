@@ -4,26 +4,28 @@ Contains text-based games which are:
 Speed Typing, Wordle and Paper, Scissors, Rock.
 Each game has a leaderboard system that can be seen. This is the main menu.
 """
-# Imports function from different Python files.
+# Imports functions from different Python files.
 import speed_typing
 import wordle
 import paper_scissors_rock
 import utils
-# Allows the game to only run when it is executed on this file directly.
-if __name__ == "__main__":
+
+
+def main_menu():
+    """Run the main menu."""
     action = 0
     print("=== Name setting ===\n")
-    # To prevent bugs, only 1 to 20 characters is accpeted as a name.
+    # To prevent bugs, only 1 and 20 characters is accepted as a name.
     while len(utils.name) == 0 or len(utils.name) > 20:
         print("Name should be between 1 to 20 letters.")
-        # Saves the name in utils file where it can be used across all files.
+        # Save the name in the utils file where it can be used across all files.
         utils.set_name(input("What is your name? "))
-    print(f"Welcome to Games Conpendium, {utils.name}!")
+    print(f"Welcome to Games Compendium, {utils.name}!")
     # Until the user wants to exit, they can keep playing the game.
     while action != 5:
         try:
             action = int(input("\n=== Main Menu ==="
-                               "\nWhat do you wish to do?,"
+                               "\nWhat do you wish to do?"
                                "\n1 : Speed Typing"
                                "\n2 : Wordle"
                                "\n3 : Paper Scissors Rock"
@@ -48,3 +50,8 @@ if __name__ == "__main__":
                 raise ValueError
         except ValueError:
             print("Please try again.")
+
+
+# Allows the game to only run when it is executed on this file directly.
+if __name__ == "__main__":
+    main_menu()

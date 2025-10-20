@@ -14,14 +14,16 @@ files = ["Files\\speed_typing_scores.txt",
 def set_name(new_name):
     """Set the name of the user globally in this file."""
     global name
-    name = new_name.strip()
+    # Delete the leading and following spaces.
+    # After, replace the space in between to "-"" to prevent bugs.   
+    name = new_name.strip().replace(" ", "-")
 
 
 def replay(extra_message):
     """Ask the user if they want to replay the same game.
 
-    Extra message can be added for each game.
-    Loops until user writes 1 (yes) or 0 (no).
+    Extra messages can be added for each game.
+    Loops until the user writes 1 (yes) or 0 (no).
     """
     playing = None
     while playing not in [0, 1]:
@@ -70,8 +72,8 @@ def get_user_high_score(file):
 def add_leaderboard(file, score):
     r"""Add the user's score in a specific game into the leaderboard.
 
-    Score takes the format "name score\n"
-    If user has a previous high score, overwrite it into their new best.
+    Score takes the format "name score\n".
+    If the user has a previous high score, overwrite it with their new best.
     Else, newly append to the last line of the file.
     """
     name_score = str(name) + " " + str(score) + "\n"
@@ -88,13 +90,13 @@ def add_leaderboard(file, score):
 def filter_top3(file, reverse_order):
     """Return the top 3 scores in the file.
 
-    Turns the file into a list of tuples which contain (name,score)
-    Sorts the list based on the score, reverse if speed typing.
+    Turn the file into a list of tuples which contain (name,score)
+    Sort the list based on the score, reverse if speed typing.
     """
     with open(file, 'r') as f:
         leaderboard = f.readlines()
     leaderboard = [tuple(lines.strip().split()) for lines in leaderboard]
-    # Sort the leaderboard in wanted order and slice the first 3 elements.
+    # Sort the leaderboard in the wanted order and slice the first 3 elements.
     top3 = sorted(leaderboard, key=lambda x: x[1], reverse=reverse_order)[:3]
     return (top3)
 

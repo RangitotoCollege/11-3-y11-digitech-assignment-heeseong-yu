@@ -14,7 +14,7 @@ def play():
           "\nCorrect letter at the correct place, GREEN,"
           "\nCorrect letter but at the wrong place, YELLOW,"
           "\nIncorrect letter, RED, will be printed accordingly."
-          "\nKeep guessing correctly to increase streak and get in the leaderboard."
+          "\nKeep guessing correctly to increase your streak and get on the leaderboard."
           "\nType 'quit' or 'exit' to quit the game."
           "\nGood luck!")
     terminator = ["quit", "exit"]
@@ -35,8 +35,9 @@ def play():
         while tries != 0:
             match = []
             guess = input("\nGuess : ").lower().strip()
-            # End the game if user inputs a terminator.
+            # End the game if the user inputs a terminator.
             if guess in terminator:
+                print(f"The answer was: {target_word}.")
                 break
             # Guess rejected if it is not an allowed word.
             if guess not in wordle_guesses_list:
@@ -53,14 +54,14 @@ def play():
                     match.append("YELLOW")
                 else:
                     match.append("RED")
-            # Print out state of each letter and the remaining tries.
+            # Print out the state of each letter and the remaining tries.
             for colours in match:
                 print(colours, end=" ")
             print(f"\n{tries} tries left.")
-            # If guess is incorrect, ask a new guess again.
+            # If the guess is incorrect, ask for a new guess again.
             if guess != target_word:
                 # If no guesses remain and the last guess was incorrect,
-                # reveal answer and end the game.
+                # reveal the answer and end the game.
                 if tries == 0:
                     print(f"Unfortunate, the answer was: {target_word}.")
                     streak = 0
@@ -77,6 +78,6 @@ def play():
                     f"New high record! {utils.name} : {streak} correct in a row!")
                 utils.add_leaderboard("Files\\wordle_scores.txt", streak)
                 break
-        # Asks the user for a replay.
+        # Ask the user for a replay.
         playing = utils.replay("STREAK ENDS IF YOU LEAVE! ")
     return
